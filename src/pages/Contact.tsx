@@ -81,9 +81,9 @@ const Contact: React.FC = () => {
                 <Typography color="error">{error}</Typography>
               ) : (
                
-        <Box onSubmit={handleSubmit} name="NewRatsForm" data-netlify="true" sx={{ mt: 4, maxWidth: 600, mx: 'auto', p: 3 }} component="form" >
+        <Box onSubmit={handleSubmit} name="NewRatsForm" action="/" method="POST" data-netlify="true" sx={{ mt: 4, maxWidth: 600, mx: 'auto', p: 3 }} component="form" >
         <Stack spacing={2}>
-            <TextField type="hidden" name="form-name" value="NewRatsForm" />
+          
           <TextField
             label="Full Name"
             name="name"
