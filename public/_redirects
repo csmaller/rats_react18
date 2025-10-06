@@ -1,0 +1,6 @@
+        /*/index.html 200```
+    *   **For `netlify.toml`:** Add the following tothe `netlify.toml` file:```toml
+        [[redirects]]
+          from = "/*"
+          to = "/index.html"
+status = 200
