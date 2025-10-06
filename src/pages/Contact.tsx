@@ -81,9 +81,9 @@ const Contact: React.FC = () => {
                 <Typography color="error">{error}</Typography>
               ) : (
                
-        <form onSubmit={handleSubmit} name="NewRatsForm" action="/" method="POST" netlify>
+        <form onSubmit={handleSubmit} name="new-rats-form" action="/" method="POST" netlify>
         <Stack spacing={2}>
-          <input type="hidden" name="form-name" value="NewRatsForm" />
+          <input type="hidden" name="form-name" value="new-rats-form" />
           <TextField
             label="Full Name"
             name="name"
