@@ -1,6 +1,6 @@
 const Honeypot = () =>
-    <div style={{ display: 'none' }}>
-        <form name="contact" method="POST" netlify-honeypot="bot-field" data-netlify="true">
+    <div>
+        <form name="new-rats-form" method="POST" netlify-honeypot="bot-field" data-netlify="true" hidden>
             <p>
                 <label>Don’t fill this out if you’re human: <input name="bot-field" /></label>
             </p>
