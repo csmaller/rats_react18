@@ -1,6 +1,7 @@
 import { AppBar, Button, Stack, Toolbar, Box } from '@mui/material';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import logo from '../assets/logo_transparent.png';
 
 const NavBar: React.FC = () => {
 
@@ -17,7 +18,7 @@ const NavBar: React.FC = () => {
           maxWidth: { xs: 140, md: 140 },
         }}
         alt="rats logo."
-        src="/src/assets/logo_transparent.png"
+        src={logo}
       />
         <Stack direction="row" spacing={2}>
           <Button color="inherit" component={Link} to="/">
