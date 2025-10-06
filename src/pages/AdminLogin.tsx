@@ -25,14 +25,16 @@ const AdminLogin: React.FC<AdminLoginProps> = ({ onLogin }) => {
 
   return (
     <Box sx={{ maxWidth: 400, mx: 'auto', mt: 8 }}>
-      <Typography variant="h5" gutterBottom>Admin Login</Typography>
+      <Typography variant="h5" gutterBottom>
+        Admin Login
+      </Typography>
       <form onSubmit={handleSubmit}>
         <TextField
           label="Username"
           fullWidth
           margin="normal"
           value={username}
-          onChange={e => setUsername(e.target.value)}
+          onChange={(e) => setUsername(e.target.value)}
         />
         <TextField
           label="Password"
@@ -40,9 +42,13 @@ const AdminLogin: React.FC<AdminLoginProps> = ({ onLogin }) => {
           fullWidth
           margin="normal"
           value={password}
-          onChange={e => setPassword(e.target.value)}
+          onChange={(e) => setPassword(e.target.value)}
         />
-        {error && <Alert severity="error" sx={{ mt: 2 }}>{error}</Alert>}
+        {error && (
+          <Alert severity="error" sx={{ mt: 2 }}>
+            {error}
+          </Alert>
+        )}
         <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 2 }}>
           Login
         </Button>

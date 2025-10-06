@@ -1,10 +1,11 @@
-import { Container } from '@mui/material';
+import { Container} from '@mui/material';
 import React, { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import About from './pages/About';
 import Home from './pages/Home';
 import Songs from './pages/Songs';
+import Contact from './pages/Contact';
 import Tour from './pages/Tour';
 import AdminLogin from './pages/AdminLogin';
 import AdminPanel from './pages/AdminPanel';
@@ -17,11 +18,11 @@ const App: React.FC = () => {
       <NavBar />
       <Container>
         <Routes>
+          <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/songs" element={<Songs />} />
-          <Route path="/tour" element={<Tour />} />
-          <Route path="/" element={<Home />} />
-          <Route
+          <Route path="/contact" element={<Contact/>} /> 
+          {/* <Route
             path="/admin"
             element={
               adminLoggedIn ? (
@@ -30,7 +31,7 @@ const App: React.FC = () => {
                 <AdminLogin onLogin={() => setAdminLoggedIn(true)} />
               )
             }
-          />
+          /> */}
         </Routes>
       </Container>
     </>

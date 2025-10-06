@@ -1,5 +1,16 @@
 import React, { useState } from 'react';
-import { Box, Button, TextField, Typography, Grid, Card, CardContent, Alert, Snackbar, CircularProgress } from '@mui/material';
+import {
+  Box,
+  Button,
+  TextField,
+  Typography,
+  Grid,
+  Card,
+  CardContent,
+  Alert,
+  Snackbar,
+  CircularProgress,
+} from '@mui/material';
 
 interface Song {
   id?: number;
@@ -18,7 +29,11 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ onLogout }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [newSong, setNewSong] = useState<Song>({ title: '', artist: '' });
-  const [toast, setToast] = useState<{ open: boolean; message: string; severity: 'success' | 'error' }>({ open: false, message: '', severity: 'success' });
+  const [toast, setToast] = useState<{
+    open: boolean;
+    message: string;
+    severity: 'success' | 'error';
+  }>({ open: false, message: '', severity: 'success' });
 
   const fetchSongs = async () => {
     setLoading(true);
@@ -102,7 +117,9 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ onLogout }) => {
 
   return (
     <Box sx={{ maxWidth: 800, mx: 'auto', mt: 4 }}>
-      <Typography variant="h5" gutterBottom>Admin Panel</Typography>
+      <Typography variant="h5" gutterBottom>
+        Admin Panel
+      </Typography>
       <Button variant="outlined" color="secondary" onClick={onLogout} sx={{ mb: 2 }}>
         Logout
       </Button>
@@ -111,13 +128,13 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ onLogout }) => {
         <TextField
           label="Title"
           value={newSong.title}
-          onChange={e => setNewSong({ ...newSong, title: e.target.value })}
+          onChange={(e) => setNewSong({ ...newSong, title: e.target.value })}
           sx={{ mr: 2 }}
         />
         <TextField
           label="Artist"
           value={newSong.artist}
-          onChange={e => setNewSong({ ...newSong, artist: e.target.value })}
+          onChange={(e) => setNewSong({ ...newSong, artist: e.target.value })}
           sx={{ mr: 2 }}
         />
         <Button variant="contained" onClick={handleAddSong} disabled={loading}>
@@ -130,36 +147,46 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ onLogout }) => {
         onClose={() => setToast({ ...toast, open: false })}
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
       >
-        <Alert severity={toast.severity} sx={{ width: '100%' }} onClose={() => setToast({ ...toast, open: false })}>
+        <Alert
+          severity={toast.severity}
+          sx={{ width: '100%' }}
+          onClose={() => setToast({ ...toast, open: false })}
+        >
           {toast.message}
         </Alert>
       </Snackbar>
       {loading && (
-        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 200 }}>
+        <Box
+          sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 200 }}
+        >
           <CircularProgress />
         </Box>
       )}
       {!loading && (
         <Grid container spacing={2}>
-          {songs.map(song => (
+          {songs.map((song) => (
             <Grid item xs={12} sm={6} md={4} key={song.id}>
               <Card>
                 <CardContent>
                   <TextField
                     label="Title"
                     value={song.title}
-                    onChange={e => handleEditSong(song.id!, { ...song, title: e.target.value })}
+                    onChange={(e) => handleEditSong(song.id!, { ...song, title: e.target.value })}
                     fullWidth
                     sx={{ mb: 1 }}
                   />
                   <TextField
                     label="Artist"
                     value={song.artist}
-                    onChange={e => handleEditSong(song.id!, { ...song, artist: e.target.value })}
+                    onChange={(e) => handleEditSong(song.id!, { ...song, artist: e.target.value })}
                     fullWidth
                     sx={{ mb: 1 }}
                   />
-                  <Button variant="outlined" color="error" onClick={() => handleDeleteSong(song.id!)}>
+                  <Button
+                    variant="outlined"
+                    color="error"
+                    onClick={() => handleDeleteSong(song.id!)}
+                  >
                     Delete
                   </Button>
                 </CardContent>

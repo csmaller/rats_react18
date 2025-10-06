@@ -17,7 +17,7 @@ const Home: React.FC = () => {
         The most dangerous cover band in the world.
       </Typography>
       <Box sx={{ mt: 4 }}>
-        <Stack direction="row" spacing={2} alignItems="center" sx={{ mb: 3 }}>
+        {/* <Stack direction="row" spacing={2} alignItems="center" sx={{ mb: 3 }}>
           <Typography variant="subtitle1">Counter:</Typography>
           <Typography variant="h6">{counterValue}</Typography>
           <Button variant="contained" onClick={() => dispatch(increment())}>
@@ -29,28 +29,30 @@ const Home: React.FC = () => {
           <Button variant="text" onClick={() => dispatch(set(0))}>
             Reset
           </Button>
-        </Stack>
+        </Stack> */}
         <Box sx={{ position: 'relative', minHeight: 450 }}>
           {loading && (
-            <Box sx={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              width: '100%',
-              height: '100%',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              backgroundColor: 'rgba(255,255,255,0.7)',
-              zIndex: 1,
-            }}>
+            <Box
+              sx={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                backgroundColor: 'rgba(255,255,255,0.7)',
+                zIndex: 1,
+              }}
+            >
               <CircularProgress />
             </Box>
           )}
           <iframe
             width="100%"
             height="450"
-            src="https://www.youtube.com/embed/42HOCRidcfY"
+            src="https://www.youtube.com/embed/f02GfloCijk"
             title="Just Breathe"
             frameBorder={0}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
