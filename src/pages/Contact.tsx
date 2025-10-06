@@ -10,6 +10,7 @@ import {
   CircularProgress,
   
 } from '@mui/material';
+import Honeypot from '../components/Honeypot';
 
 interface ContactFormData {
     name: string;   
@@ -69,6 +70,7 @@ const Contact: React.FC = () => {
 
     return (
         <div>
+             <Honeypot />
         {loading ? (
                 <Box
                   sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 200 }}
@@ -78,6 +80,7 @@ const Contact: React.FC = () => {
               ) : error ? (
                 <Typography color="error">{error}</Typography>
               ) : (
+               
         <Box onSubmit={handleSubmit} name="NewRatsForm" data-netlify="true" sx={{ mt: 4, maxWidth: 600, mx: 'auto', p: 3 }} component="form" >
         <Stack spacing={2}>
             <TextField type="hidden" name="form-name" value="NewRatsForm" />
