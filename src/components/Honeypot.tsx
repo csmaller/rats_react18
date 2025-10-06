@@ -1,5 +1,5 @@
 const Honeypot = () =>
-    <div className="d-none">
+    <div style={{ display: 'none' }}>
         <form name="contact" method="POST" netlify-honeypot="bot-field" data-netlify="true">
             <p>
                 <label>Don’t fill this out if you’re human: <input name="bot-field" /></label>
