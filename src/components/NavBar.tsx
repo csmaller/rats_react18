@@ -1,9 +1,19 @@
 import { AppBar, Button, Stack, Toolbar, Box } from '@mui/material';
-import React from 'react';
+import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../assets/logo_transparent.png';
 
 const NavBar: React.FC = () => {
+
+  const home = useRef(null);
+  const test = useRef(null);
+
+  const scrollIntoView = (elref: React.RefObject<HTMLElement>) => {
+    console.log(elref);
+   
+      window.scrollTo({ behavior: 'smooth' , top:elref.current?.offsetTop });//<--uncomment to enable scrolling to ref
+ 
+  }
 
   return (
     <AppBar position="sticky" sx={{ mb: 4, py:2, borderBottom: 1, borderColor: 'divider' , backgroundColor:"black "}}>
@@ -21,7 +31,7 @@ const NavBar: React.FC = () => {
         src={logo}
       />
         <Stack direction="row" spacing={2}>
-          <Button color="inherit" component={Link} to="/">
+          <Button color="inherit" onClick={scrollIntoView(home)}>
             Home
           </Button>
           <Button color="inherit" component={Link} to="/about">
@@ -32,6 +42,9 @@ const NavBar: React.FC = () => {
           </Button>
           <Button color="inherit" component={Link} to="/contact">
             Contact
+          </Button>
+          <Button color="inherit" onClick={scrollIntoView(test)}>
+            test
           </Button>
           
         

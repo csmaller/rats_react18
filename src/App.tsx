@@ -9,19 +9,21 @@ import Contact from './pages/Contact';
 import Tour from './pages/Tour';
 import AdminLogin from './pages/AdminLogin';
 import AdminPanel from './pages/AdminPanel';
+import { Box, Divider, Typography } from '@mui/material';
 
 const App: React.FC = () => {
   const [adminLoggedIn, setAdminLoggedIn] = useState(false);
+  const test = React.useRef(null);
 
   return (
     <>
       <NavBar />
       <Container>
-        <Routes>
+        {/* <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/songs" element={<Songs />} />
-          <Route path="/contact" element={<Contact/>} /> 
+          <Route path="/contact" element={<Contact/>} />  */}
           {/* <Route
             path="/admin"
             element={
@@ -32,7 +34,17 @@ const App: React.FC = () => {
               )
             }
           /> */}
-        </Routes>
+        {/* /</Routes> */}
+        <Home />
+        <Divider sx={{ height:20}} />
+    <Container sx={{ mt: 6, mb:6 }} ref={test}>
+    <Typography variant="h4" gutterBottom>
+       Upcoming Shows
+      </Typography>
+      <Box sx={{ mt: 4 }}>
+      <iframe src="https://www.songkick.com/artists/1015740-rats" width="100%" height="600" frameBorder="0" scrolling="no"></iframe>
+      </Box>
+    </Container>
       </Container>
     </>
   );
