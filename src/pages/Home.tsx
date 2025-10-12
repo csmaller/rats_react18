@@ -1,13 +1,22 @@
 import { Box, Button, Container, Stack, Typography, Divider } from '@mui/material';
-import React, {useRef} from 'react';
+import React, {useRef, useEffect} from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import Loader from '../components/Loader';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState, AppDispatch } from '../store/store';
+import { fetchSongs } from '../store/slices/songsSlice';
 
 const Home: React.FC = () => {
   const home = useRef(null);
-  const dispatch = useAppDispatch();
-  const counterValue = useAppSelector((s) => s.counter.value);
-  const [loading, setLoading] = React.useState(true);
+  //const [loading, setLoading] = React.useState(true);
+
+    const dispatch = useDispatch<AppDispatch>();
+    const { songs, loading, error } = useSelector((state: RootState) => state.songs);
+  
+    useEffect(() => {
+      dispatch(fetchSongs());
+    }, [dispatch]);
+  
 
   return (
     <>
