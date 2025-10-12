@@ -8,10 +8,10 @@ import { fetchSongs } from '../store/slices/songsSlice';
 
 const Home: React.FC = () => {
   const home = useRef(null);
-  //const [loading, setLoading] = React.useState(true);
+  const [loading, setLoading] = React.useState(true);
 
     const dispatch = useDispatch<AppDispatch>();
-    const { songs, loading, error } = useSelector((state: RootState) => state.songs);
+    const { songs,  error } = useSelector((state: RootState) => state.songs);
   
     useEffect(() => {
       dispatch(fetchSongs());

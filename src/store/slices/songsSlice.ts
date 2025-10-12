@@ -100,6 +100,7 @@ export const fetchSongs = createAsyncThunk<Song[]>(
       const response = await fetch(`${url}`);
       if (!response.ok) throw new Error('Network response was not ok');
       const data = await response.json();
+      console.log(data);
       return data;
     } catch (err: any) {
       return rejectWithValue(err.message || 'Failed to fetch songs');
