@@ -91,11 +91,13 @@ const initialState: SongsState = {
   error: null,
 };
 
+const url = 'https://68ebd5f7afbfe7126dda75b3--ratsbackend.netlify.app/';
+
 export const fetchSongs = createAsyncThunk<Song[]>(
   'songs/fetchSongs',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await fetch('https://ratsprisma.netlify.app/songs');
+      const response = await fetch(`${url}/songs`);
       if (!response.ok) throw new Error('Network response was not ok');
       const data = await response.json();
       return data;
