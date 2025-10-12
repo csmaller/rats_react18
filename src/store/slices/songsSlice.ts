@@ -91,7 +91,7 @@ const initialState: SongsState = {
   error: null,
 };
 
-const url = 'https://68ebdf8fdcba6c99e071a6f4--ratsbackend.netlify.app/.netlify/functions/songs';
+const url = 'https://ratsbackend.netlify.app/.netlify/functions/songs';
 
 export const fetchSongs = createAsyncThunk<Song[]>(
   'songs/fetchSongs',
