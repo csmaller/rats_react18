@@ -13,6 +13,7 @@ const Songs: React.FC = () => {
     dispatch(fetchSongs());
   }, [dispatch]);
 
+
   // Fallback to local songs.json if API fails
   const displaySongs = songs.length > 0 ? songs : songsData.songs;
 

@@ -10,7 +10,7 @@ import {
   CircularProgress,
   
 } from '@mui/material';
-import Honeypot from '../components/Honeypot';
+import Honeypot from '../shared/components/Honeypot';
 
 interface ContactFormData {
     name: string;   

@@ -1,26 +1,12 @@
 import { Box, Button, Container, Stack, Typography, Divider } from '@mui/material';
-import React, {useRef, useEffect} from 'react';
-import { useAppDispatch, useAppSelector } from '../hooks';
-import Loader from '../components/Loader';
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState, AppDispatch } from '../store/store';
-import { fetchSongs } from '../store/slices/songsSlice';
+import React, {forwardRef, useRef, useEffect} from 'react';
+import Loader from '../shared/components/Loader';
 
-const Home: React.FC = () => {
-  const home = useRef(null);
+const Home =()  => {
   const [loading, setLoading] = React.useState(true);
-
-    const dispatch = useDispatch<AppDispatch>();
-    const { songs,  error } = useSelector((state: RootState) => state.songs);
-  
-    useEffect(() => {
-      dispatch(fetchSongs());
-    }, [dispatch]);
-  
-
   return (
     <>
-    <Container sx={{ mt: 4 }} ref={home}>
+    <Container sx={{ mt: 4 }} >
       <Typography variant="h3" gutterBottom>
        Rage Against The Supremes
       </Typography>
@@ -28,19 +14,6 @@ const Home: React.FC = () => {
         The most dangerous cover band in the world.
       </Typography>
       <Box sx={{ mt: 4 }}>
-        {/* <Stack direction="row" spacing={2} alignItems="center" sx={{ mb: 3 }}>
-          <Typography variant="subtitle1">Counter:</Typography>
-          <Typography variant="h6">{counterValue}</Typography>
-          <Button variant="contained" onClick={() => dispatch(increment())}>
-            +
-          </Button>
-          <Button variant="outlined" onClick={() => dispatch(decrement())}>
-            -
-          </Button>
-          <Button variant="text" onClick={() => dispatch(set(0))}>
-            Reset
-          </Button>
-        </Stack> */}
         <Box sx={{ position: 'relative', minHeight: 450 }}>
           {loading && (
             <Loader />
@@ -59,8 +32,7 @@ const Home: React.FC = () => {
         </Box>
       </Box>
     </Container>
-
-    </>
+</>
   );
 };
 
