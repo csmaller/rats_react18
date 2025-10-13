@@ -7,9 +7,6 @@ const Home = () => {
   return (
     <>
       <Container sx={{ mt: 4 }}>
-        <Typography variant="h3" gutterBottom>
-          Rage Against The Supremes
-        </Typography>
         <Typography variant="h6" gutterBottom>
           The most dangerous cover band in the world.
         </Typography>
