@@ -67,7 +67,7 @@ const Contact: React.FC = () => {
 
   return (
     <div>
-       <Box sx={{ mb: 2, justifyContent: 'center', display: 'flex', pt:4 }}>
+       <Box sx={{ mb: 2, justifyContent: 'center', display: 'flex' }}>
         <Typography variant="h4" component="h1" gutterBottom>
           Contact Us
         </Typography>
