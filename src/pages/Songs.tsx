@@ -19,9 +19,11 @@ const Songs: React.FC = () => {
 
   return (
     <Box sx={{overflowY: 'auto', height: '100%', pb:6}}>
+      <Box sx={{ mb: 2, justifyContent: 'center', display: 'flex', pt:4 }}>
       <Typography variant="h4" component="h1" gutterBottom>
-        Songs Page
+        Songs
       </Typography>
+      </Box>
       {loading ? (
         <Box
           sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 200 }}
