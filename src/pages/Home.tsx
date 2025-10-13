@@ -6,7 +6,7 @@ const Home = () => {
   const [loading, setLoading] = React.useState(true);
   return (
     <>
-      <Container sx={{ mt: 4 }}>
+      <Container sx={{ pt: 6 }}>
         <Typography variant="h6" gutterBottom>
           The most dangerous cover band in the world.
         </Typography>
