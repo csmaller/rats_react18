@@ -37,7 +37,7 @@ const Songs: React.FC = () => {
           {displaySongs.map((song: any, idx: number) => (
             <Grid item xs={12} sm={6} md={4} key={song.id || idx}>
               <Card>
-                <CardContent>
+                <CardContent sx={{paddingBottom: '8px !important', paddingTop:'8px !important'}}>
                   <Typography variant="body1">{song.title} - {song.artist}</Typography>
                 </CardContent>
               </Card>
