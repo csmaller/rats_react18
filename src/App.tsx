@@ -94,7 +94,7 @@ const App: React.FC = () => {
           />
         </Routes>
 
-        <Divider sx={{ height: 20 }} />
+     
         <Container className="container" ref={home}>
           <Home />
           <Divider sx={{ height: 20 }} />
