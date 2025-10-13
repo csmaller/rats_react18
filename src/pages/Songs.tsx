@@ -18,7 +18,7 @@ const Songs: React.FC = () => {
   const displaySongs = songs.length > 0 ? songs : songsData.songs;
 
   return (
-    <div>
+    <Box sx={{overflowY: 'auto', height: '100%'}}>
       <Typography variant="h4" component="h1" gutterBottom>
         Songs Page
       </Typography>
@@ -43,7 +43,7 @@ const Songs: React.FC = () => {
           ))}
         </Grid>
       )}
-    </div>
+    </Box>
   );
 };
 
