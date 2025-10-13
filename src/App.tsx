@@ -97,15 +97,19 @@ const App: React.FC = () => {
         <Divider sx={{ height: 20 }} />
         <Container className="container" ref={home}>
           <Home />
+          <Divider sx={{ height: 20 }} />
         </Container>
         <Container className="container" ref={about}>
-          <AlbumOutlined />
+          <About />
+          <Divider sx={{ height: 20 }} />
         </Container>
         <Container className="container" ref={songs}>
           <Songs />
+          <Divider sx={{ height: 20 }} />
         </Container>
         <Container className="container" ref={contact}>
           <Contact />
+          <Divider sx={{ height: 20 }} />
         </Container>
         <Container className="container" ref={tour}>
           <Tour />

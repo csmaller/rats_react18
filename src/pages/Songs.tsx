@@ -13,16 +13,15 @@ const Songs: React.FC = () => {
     dispatch(fetchSongs());
   }, [dispatch]);
 
-
   // Fallback to local songs.json if API fails
   const displaySongs = songs.length > 0 ? songs : songsData.songs;
 
   return (
-    <Box sx={{overflowY: 'auto', height: '100%', pb:6}}>
-      <Box sx={{ mb: 2, justifyContent: 'center', display: 'flex', pt:4 }}>
-      <Typography variant="h4" component="h1" gutterBottom>
-        Songs
-      </Typography>
+    <Box sx={{ overflowY: 'auto', height: '100%', pb: 6 }}>
+      <Box sx={{ mb: 2, justifyContent: 'center', display: 'flex', pt: 4 }}>
+        <Typography variant="h4" component="h1" gutterBottom>
+          Songs
+        </Typography>
       </Box>
       {loading ? (
         <Box
@@ -37,8 +36,10 @@ const Songs: React.FC = () => {
           {displaySongs.map((song: any, idx: number) => (
             <Grid item xs={12} sm={6} md={4} key={song.id || idx}>
               <Card>
-                <CardContent sx={{paddingBottom: '8px !important', paddingTop:'8px !important'}}>
-                  <Typography variant="body1">{song.title} - {song.artist}</Typography>
+                <CardContent sx={{ paddingBottom: '8px !important', paddingTop: '8px !important' }}>
+                  <Typography variant="body1">
+                    {song.title} - {song.artist}
+                  </Typography>
                 </CardContent>
               </Card>
             </Grid>
