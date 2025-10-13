@@ -34,15 +34,11 @@ const Songs: React.FC = () => {
         <Grid container spacing={2}>
           {displaySongs.map((song: any, idx: number) => (
             <Grid item xs={12} sm={6} md={4} key={song.id || idx}>
-              <div>
-                  <Typography variant="h4">{song.title}</Typography>
-                  <Typography variant="body1">Artist: {song.artist}</Typography>
-              </div>
-              {/* <Card>
+              <Card>
                 <CardContent>
-                  
+                  <Typography variant="body1">{song.title} - {song.artist}</Typography>
                 </CardContent>
-              </Card> */}
+              </Card>
             </Grid>
           ))}
         </Grid>

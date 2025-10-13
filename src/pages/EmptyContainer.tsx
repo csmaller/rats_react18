@@ -1,8 +1,6 @@
-import React
- from 'react'
+import React from 'react';
 const EmptyContainer: React.FC = () => {
-return (
-    <div></div>
-)}
+  return <div></div>;
+};
 
 export default EmptyContainer;
