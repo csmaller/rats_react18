@@ -17,7 +17,7 @@ const Songs: React.FC = () => {
   const displaySongs = songs.length > 0 ? songs : songsData.songs;
 
   return (
-    <Box sx={{ overflowY: 'auto', height: '100%', pb: 6 }}>
+    <Box sx={{ height: '100%', pb: 6 }}>
       <Box sx={{ mb: 2, justifyContent: 'center', display: 'flex', pt: 4 }}>
         <Typography variant="h4" component="h1" gutterBottom>
           Songs
@@ -32,7 +32,7 @@ const Songs: React.FC = () => {
       ) : error ? (
         <Typography color="error">{error}</Typography>
       ) : (
-        <Grid container spacing={2}>
+        <Grid container spacing={2}  sx={{overflowY: 'auto'}}>
           {displaySongs.map((song: any, idx: number) => (
             <Grid item xs={12} sm={6} md={4} key={song.id || idx}>
               <Card>
