@@ -13,7 +13,7 @@ const App: React.FC = () => {
   const [adminLoggedIn, setAdminLoggedIn] = useState(false);
  
   return (
-      <Container>
+      <Container sx={{ maxWidth: '100% !important' }} disableGutters >
         <Routes>
           <Route path="/" element={<Home />} />
           <Route

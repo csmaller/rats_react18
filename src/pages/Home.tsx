@@ -70,12 +70,11 @@ const Home = () => {
           <Button onClick={() => scrollIntoView(about)}>About</Button>
           <Button onClick={() => scrollIntoView(songs)}>Songs</Button>
           <Button onClick={() => scrollIntoView(contact)}>Contact</Button>
-          <Button onClick={() => scrollIntoView(tour)}>Tour Dates</Button>
+          {/* <Button onClick={() => scrollIntoView(tour)}>Tour Dates</Button> */}
           <ScrollToTop />
         </Stack>
       </Toolbar>
-        <Divider sx={{ height: 20 }} />
-        <Container className="container" ref={home}>
+        <Container className="container home" ref={home}>
           <Video/>
           <Divider sx={{ height: 20 }} />
         </Container>
