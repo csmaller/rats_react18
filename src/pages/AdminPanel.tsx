@@ -116,7 +116,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ onLogout }) => {
   };
 
   return (
-    <Box sx={{ maxWidth: 800, mx: 'auto', mt: 4 }}>
+    <Box sx={{ maxWidth: 800, mx: 'auto', mt: 4 }} class="admin-login">
       <Typography variant="h5" gutterBottom>
         Admin Panel
       </Typography>

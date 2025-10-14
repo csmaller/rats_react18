@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { Box, Button, TextField, Typography, Alert } from '@mui/material';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState, AppDispatch } from '../store/store';
+import { login} from '../store/slices/authSlice';
 
 const ADMIN_USERNAME = 'admin';
 const ADMIN_PASSWORD = 'password123';
@@ -11,27 +14,29 @@ interface AdminLoginProps {
 const AdminLogin: React.FC<AdminLoginProps> = ({ onLogin }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const dispatch = useDispatch<AppDispatch>();
+  const { error, loading } = useSelector((state: RootState) => state.auth);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
-      setError('');
+    const loginType = await dispatch(login({ username, password }));
+  
+    if(loginType.type === 'auth/login/fulfilled') {
+      console.log('Login successful');
       onLogin();
-    } else {
-      setError('Invalid credentials');
     }
   };
 
   return (
-    <Box sx={{ maxWidth: 400, mx: 'auto', mt: 8 }}>
+    <Box sx={{ maxWidth: 400, mx: 'auto', mt: 12 }} class="admin-login">
       <Typography variant="h5" gutterBottom>
         Admin Login
       </Typography>
+      <Box sx={{justifyContent:"start", paddingRight:2}}>
       <form onSubmit={handleSubmit}>
         <TextField
           label="Username"
-          fullWidth
           margin="normal"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
@@ -39,7 +44,6 @@ const AdminLogin: React.FC<AdminLoginProps> = ({ onLogin }) => {
         <TextField
           label="Password"
           type="password"
-          fullWidth
           margin="normal"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
@@ -53,6 +57,7 @@ const AdminLogin: React.FC<AdminLoginProps> = ({ onLogin }) => {
           Login
         </Button>
       </form>
+      </Box>
     </Box>
   );
 };

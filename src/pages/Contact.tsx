@@ -67,11 +67,11 @@ const Contact: React.FC = () => {
 
   return (
     <div>
-       <Box sx={{ mb: 2, justifyContent: 'center', display: 'flex', pt:6 }}>
+      <Box sx={{ mb: 2, justifyContent: 'center', display: 'flex', pt: 6 }}>
         <Typography variant="h4" component="h1" gutterBottom>
           Contact Us
         </Typography>
-        </Box>
+      </Box>
       <Honeypot />
       {loading ? (
         <Box
