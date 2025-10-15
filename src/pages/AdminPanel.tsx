@@ -11,6 +11,7 @@ import {
   Snackbar,
   CircularProgress,
 } from '@mui/material';
+import { songsUrl } from '../shared/utils/url';
 
 interface Song {
   id?: number;
@@ -21,8 +22,6 @@ interface Song {
 interface AdminPanelProps {
   onLogout: () => void;
 }
-
-const API_URL = 'http://localhost:4000/songs';
 
 const AdminPanel: React.FC<AdminPanelProps> = ({ onLogout }) => {
   const [songs, setSongs] = useState<Song[]>([]);
@@ -39,7 +38,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ onLogout }) => {
     setLoading(true);
     setError('');
     try {
-      const res = await fetch(API_URL);
+      const res = await fetch(songsUrl);
       if (!res.ok) throw new Error('Failed to fetch songs');
       const data = await res.json();
       setSongs(data);
