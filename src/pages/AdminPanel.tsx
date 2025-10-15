@@ -59,7 +59,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ onLogout }) => {
     setLoading(true);
     setError('');
     try {
-      const res = await fetch(API_URL, {
+      const res = await fetch((songsUrl), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify([newSong]),
@@ -80,7 +80,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ onLogout }) => {
     setLoading(true);
     setError('');
     try {
-      const res = await fetch(`${API_URL}/${id}`, {
+      const res = await fetch(`${songsUrl}/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(updated),
@@ -100,7 +100,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ onLogout }) => {
     setLoading(true);
     setError('');
     try {
-      const res = await fetch(`${API_URL}/${id}`, {
+      const res = await fetch(`${songsUrl}/${id}`, {
         method: 'DELETE',
       });
       if (!res.ok) throw new Error('Failed to delete song');
@@ -115,7 +115,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ onLogout }) => {
   };
 
   return (
-    <Box sx={{ maxWidth: 800, mx: 'auto', mt: 4 }} class="admin-login">
+    <Box component="div" sx={{ maxWidth: 800, mx: 'auto', mt: 4 }} class="admin-login">
       <Typography variant="h5" gutterBottom>
         Admin Panel
       </Typography>
