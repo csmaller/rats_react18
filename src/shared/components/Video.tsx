@@ -7,8 +7,13 @@ const Video: React.FC = () => {
 
   return (
     <Container sx={{ pt: 6 }}>
-        <Typography variant="h6" gutterBottom>
+        <Typography variant="h4" gutterBottom>
           The most dangerous cover band in the world.
+        </Typography>
+        <Typography variant="body1" gutterBottom>
+          We have been playing in and around Utah, California,Colorado, Wyoming, Nevada and Idaho since 2008. Our music comes from almost every popular genre and can be best described as “Ski Town Party Music”, but that doesn’t mean we don’t make your wedding, corporate event, or party a complete success!
+
+          <p>With tons of songs, medleys, contagious energy, a touch of humor, and positive vibes RATS has built a name for themselves in their home town of Park City as one of the best bands in the area. Come down to one of our shows and see what all of the fuss is about.</p>
         </Typography>
         <Box sx={{ mt: 4 }}>
           <Box sx={{ position: 'relative', minHeight: 450 }}>

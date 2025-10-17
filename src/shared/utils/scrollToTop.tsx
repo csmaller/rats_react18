@@ -18,11 +18,12 @@ const ScrollToTop: React.FC = () => {
 
   const scrollTop = () => {
     if (main) {
-      main.scrollTo({ top: 0, behavior: 'smooth' });
+      main.scrollTo({ top: -200, behavior: 'smooth' });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
-  return <div>{showScrollTopButton && <Button onClick={scrollTop}>Scroll to Top</Button>}</div>;
+  return <div>{showScrollTopButton && <Button onClick={scrollTop}>Back to Top</Button>}</div>;
 };
 
 export default ScrollToTop;

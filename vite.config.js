@@ -41,4 +41,17 @@ export default defineConfig({
   server: {
     open: false,
   },
+  define: {
+    global: 'globalThis',
+  },
+  resolve: {
+    alias: {
+      crypto: 'crypto-browserify',
+      stream: 'stream-browserify',
+      util: 'util',
+    },
+  },
+  optimizeDeps: {
+    include: ['crypto-browserify'],
+  },
 });

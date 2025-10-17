@@ -1,11 +1,10 @@
-import { Box, Button, Container, Stack, Typography, Divider,Toolbar } from '@mui/material';
+import { Box, Button, Container, Stack, Divider,Toolbar } from '@mui/material';
 import React, { useRef, useState } from 'react';
-import Loader from '../shared/components/Loader';
-import About from './About';
+// import About from './About';
 import Video from '../shared/components/Video';
 import Songs from './Songs';
 import Contact from './Contact';
-import Tour from './Tour';
+// import Tour from './Tour';
 import ScrollToTop from '../shared/utils/scrollToTop';
 import logo from '../assets/logo_transparent.png';
 
@@ -67,9 +66,9 @@ const Home = () => {
         />
         <Stack direction="row" spacing={2}>
           <Button onClick={() => scrollIntoView(home)}>Home</Button>
-          <Button onClick={() => scrollIntoView(about)}>About</Button>
+          {/* <Button onClick={() => scrollIntoView(about)}>About</Button> */}
           <Button onClick={() => scrollIntoView(songs)}>Songs</Button>
-          <Button onClick={() => scrollIntoView(contact)}>Contact</Button>
+          <Button onClick={() => scrollIntoView(contact)}>Contact </Button>
           {/* <Button onClick={() => scrollIntoView(tour)}>Tour Dates</Button> */}
           <ScrollToTop />
         </Stack>
@@ -78,10 +77,10 @@ const Home = () => {
           <Video/>
           <Divider sx={{ height: 20 }} />
         </Container>
-        <Container className="container" ref={about}>
+        {/* <Container className="container" ref={about}>
           <About />
           <Divider sx={{ height: 20 }} />
-        </Container>
+        </Container> */}
         <Container className="container" ref={songs}>
           <Songs />
           <Divider sx={{ height: 20 }} />
@@ -90,9 +89,9 @@ const Home = () => {
           <Contact />
           <Divider sx={{ height: 20 }} />
         </Container>
-        <Container className="container" ref={tour}>
+        {/* <Container className="container" ref={tour}>
           <Tour />
-        </Container>
+        </Container> */}
       
     </Container>
   );

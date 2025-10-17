@@ -66,7 +66,7 @@ const Contact: React.FC = () => {
   };
 
   return (
-    <div style={{ maxWidth: 1200, margin: '0 auto', padding: '24px' }}>
+    <div style={{ maxWidth: 1200, margin: '0 auto' }}>
       <Box sx={{ mb: 2, justifyContent: 'center', display: 'flex', pt: 3, }}>
         <Typography variant="h4" component="h1" gutterBottom>
           Contact Us
