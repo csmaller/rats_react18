@@ -55,31 +55,33 @@ const Home = () => {
           borderColor: 'divider',
           width: '100%',
           py: { xs: 1, md: 2 },
-          justifyContent: 'space-between',
         }}
       >
-        <Box
-          component="img"
-          sx={{
-            height: { xs: 60, md: 80 },
-            width: { xs: 75, md: 100 },
-          }}
-          alt="rats logo."
-          src={logo}
-        />
-        <Box sx={{ display: { xs: 'none', sm: 'flex' } }}>
-          <Stack direction="row" spacing={2}>
-            <Button onClick={() => scrollIntoView(home)}>Home</Button>
-            <Button onClick={() => scrollIntoView(contact)}>Contact</Button>
-            <Button onClick={() => scrollIntoView(songs)}>Songs</Button>
-            <ScrollToTop />
-          </Stack>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+          <Box
+            component="img"
+            sx={{
+              height: { xs: 60, md: 80 },
+              width: { xs: 75, md: 100 },
+            }}
+            alt="rats logo."
+            src={logo}
+          />
+          <Box sx={{ display: { xs: 'none', sm: 'flex' } }}>
+            <Stack direction="row" spacing={2}>
+              <Button onClick={() => scrollIntoView(home)}>Home</Button>
+              <Button onClick={() => scrollIntoView(contact)}>Contact</Button>
+              <Button onClick={() => scrollIntoView(songs)}>Songs</Button>
+              <ScrollToTop />
+            </Stack>
+          </Box>
         </Box>
         <IconButton
           sx={{ 
             display: { xs: 'flex', sm: 'none' },
             fontSize: '2rem',
-            p: 2
+            p: 2,
+            ml: 'auto'
           }}
           onClick={() => setMobileOpen(true)}
         >
