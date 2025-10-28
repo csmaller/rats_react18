@@ -66,9 +66,9 @@ const Contact: React.FC = () => {
   };
 
   return (
-    <div style={{ maxWidth: 1200, margin: '0 auto' }}>
-      <Box sx={{ mb: 2, justifyContent: 'center', display: 'flex', pt: 3, }}>
-        <Typography variant="h4" component="h1" gutterBottom>
+    <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 16px' }}>
+      <Box sx={{ mb: 2, justifyContent: 'center', display: 'flex', pt: { xs: 1, sm: 3 } }}>
+        <Typography variant="h4" component="h1" gutterBottom sx={{ fontSize: { xs: '1.75rem', sm: '2.125rem' } }}>
           Contact Us
         </Typography>
       </Box>
@@ -89,7 +89,7 @@ const Contact: React.FC = () => {
           method="POST"
           data-netlify="true"
         >
-          <Stack spacing={2}>
+          <Stack spacing={{ xs: 1.5, sm: 2 }}>
             <input type="hidden" name="form-name" value="new-rats-form" />
             <TextField
               label="Full Name"
@@ -124,14 +124,14 @@ const Contact: React.FC = () => {
               required
             />
 
-            <Button type="submit" variant="contained" color="primary" sx={{ py: 1.5 }}>
+            <Button type="submit" variant="contained" color="primary" sx={{ py: 1.5, fontSize: { xs: '0.9rem', sm: '1rem' } }}>
               Send Messages
             </Button>
           </Stack>
         </form>
       )}
       {submitted && (
-        <Alert severity="success" sx={{ mt: 2, maxWidth: 600, mx: 'auto' }}>
+        <Alert severity="success" sx={{ mt: 2, maxWidth: 600, mx: 'auto', fontSize: { xs: '0.9rem', sm: '1rem' } }}>
           Thank you for contacting us! We will get back to you soon.
         </Alert>
       )}

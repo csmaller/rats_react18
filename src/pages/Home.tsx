@@ -51,37 +51,70 @@ const Home = () => {
           borderBottom: 3,
           borderColor: 'divider',
           width: '100%',
-          py: 2,
+          py: { xs: 1, md: 2 },
+          flexDirection: { xs: 'column', sm: 'row' },
+          gap: { xs: 1, sm: 0 },
         }}
       >
         <Box
           component="img"
           sx={{
-            mr: 3,
-            height: 80,
-            width: 100,
+            mr: { xs: 0, sm: 3 },
+            height: { xs: 60, md: 80 },
+            width: { xs: 75, md: 100 },
           }}
           alt="rats logo."
           src={logo}
         />
-        <Stack direction="row" spacing={2}>
-          <Button onClick={() => scrollIntoView(home)}>Home</Button>
-          <Button onClick={() => scrollIntoView(contact)}>Contact </Button>
-          <Button onClick={() => scrollIntoView(songs)}>Songs</Button>
+        <Stack 
+          direction={{ xs: 'column', sm: 'row' }} 
+          spacing={{ xs: 1, sm: 2 }}
+          sx={{ width: { xs: '100%', sm: 'auto' } }}
+        >
+          <Button 
+            onClick={() => scrollIntoView(home)}
+            sx={{ fontSize: { xs: '0.8rem', sm: '1rem' } }}
+          >
+            Home
+          </Button>
+          <Button 
+            onClick={() => scrollIntoView(contact)}
+            sx={{ fontSize: { xs: '0.8rem', sm: '1rem' } }}
+          >
+            Contact
+          </Button>
+          <Button 
+            onClick={() => scrollIntoView(songs)}
+            sx={{ fontSize: { xs: '0.8rem', sm: '1rem' } }}
+          >
+            Songs
+          </Button>
           <ScrollToTop />
         </Stack>
       </Toolbar>
-        <Container className="container home" ref={home}>
+        <Container 
+          className="container home" 
+          ref={home}
+          sx={{ pt: { xs: 15, sm: 12, md: 10 } }}
+        >
           <Video/>
-          <Divider sx={{ height: 20, mt:4 }} />
+          <Divider sx={{ height: 20, mt: 4 }} />
         </Container>
-       <Container className="container" ref={contact}>
+       <Container 
+          className="container" 
+          ref={contact}
+          sx={{ px: { xs: 1, sm: 3 } }}
+        >
           <Contact />
-          <Divider sx={{ height: 20 , mt:4}} />
+          <Divider sx={{ height: 20, mt: 4 }} />
         </Container>
-        <Container className="container" ref={songs}>
+        <Container 
+          className="container" 
+          ref={songs}
+          sx={{ px: { xs: 1, sm: 3 } }}
+        >
           <Songs />
-          <Divider sx={{ height: 20 , mt:4}} />
+          <Divider sx={{ height: 20, mt: 4 }} />
         </Container>
         
         {/* <Container className="container" ref={tour}>
