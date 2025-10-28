@@ -53,7 +53,7 @@ const Contact: React.FC = () => {
       fetch('/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: encode({ 'form-name': 'new-rats-form', ...formData }),
+        body: encode({ 'form-name': 'rats-form-2025', ...formData }),
       })
         .then(() => resetForm())
         .catch((error) => alert(error));
@@ -84,13 +84,13 @@ const Contact: React.FC = () => {
       ) : (
         <form
           onSubmit={handleSubmit}
-          name="new-rats-form"
+          name="rats-form-2025"
           action="/"
           method="POST"
           data-netlify="true"
         >
           <Stack spacing={{ xs: 1.5, sm: 2 }}>
-            <input type="hidden" name="form-name" value="new-rats-form" />
+            <input type="hidden" name="form-name" value="rats-form-2025" />
             <TextField
               label="Full Name"
               name="name"

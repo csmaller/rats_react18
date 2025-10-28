@@ -1,7 +1,7 @@
 const Honeypot = () => (
   <div>
     <form
-      name="new-rats-form"
+      name="rats-form-2025"
       method="POST"
       netlify-honeypot="bot-field"
       data-netlify="true"
