@@ -66,7 +66,7 @@ const Contact: React.FC = () => {
   };
 
   return (
-    <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 16px' }}>
+    <Box component="div" sx={{ maxWidth: 1200, margin: '0 auto', padding: '0 16px' }}>
       <Box sx={{ mb: 2, justifyContent: 'center', display: 'flex', pt: { xs: 1, sm: 3 } }}>
         <Typography variant="h4" component="h1" gutterBottom sx={{ fontSize: { xs: '1.75rem', sm: '2.125rem' } }}>
           Contact Us
@@ -135,7 +135,7 @@ const Contact: React.FC = () => {
           Thank you for contacting us! We will get back to you soon.
         </Alert>
       )}
-    </div>
+    </Box>
   );
 };
 

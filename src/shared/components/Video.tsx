@@ -13,25 +13,25 @@ const Video: React.FC = () => {
           Welcome to the most dangerous cover band in the world.
         </Typography>
         
-        <Box component="div" sx={{ mt: 1, display: 'flex', flexDirection: { xs: 'column', lg: 'row' }, justifyContent: 'center', width: '100%', alignItems: 'center', gap: { xs: 2, lg: 4 } }}>
-          <Typography variant="body1" gutterBottom sx={{ pl: { xs: 1, sm: 4 }, pr: { xs: 1, sm: 4 }, fontSize: { xs: '0.9rem', sm: '1rem' }, maxWidth: { lg: '50%' } }}>
+        <Box component="div" sx={{ mt: {xs:4,md:1}, display: 'flex', flexDirection: { xs: 'column', lg: 'row' }, justifyContent: 'center', width: '100%', gap: { xs: 2, lg: 4 } }}>
+          <Typography variant="body1" gutterBottom sx={{ pl: { xs: 1, sm: 4 }, pr: { xs: 1, sm: 4 }, fontSize: { xs: '0.9rem', sm: '1rem' }, maxWidth: { lg: '50%' }, pt:{lg:4, xs:2} }}>
           We have been playing in and around Utah, California,Colorado, Wyoming, Nevada and Idaho since 2008. Our music comes from almost every popular genre and can be best described as “Ski Town Party Music”, but that doesn’t mean we don’t make your wedding, corporate event, or party a complete success!
 
           <p>With tons of songs, medleys, contagious energy, a touch of humor, and positive vibes RATS has built a name for themselves in their home town of Park City as one of the best bands in the area. Come down to one of our shows and see what all of the fuss is about.</p>
         </Typography>
-          <Box sx={{ mt: { xs: 2, lg: 4 } }}>
-            <Box sx={{ position: 'relative', minHeight: { xs: 250, sm: 350, md: 500 }, width: { xs: '100%', sm: 350, md: 400 }, maxWidth: '100%' }}>
+          <Box sx={{ mt: { xs: 2, lg: 4 } }} >
+            <Box  sx={{ position: 'relative', minHeight: { xs: 250, sm: 400, md: 400 }, width: { xs: '100%', sm: 300 }, maxWidth: '100%' }}>
               {loading && <Loader />}
-              <iframe
-                width="100%"
-                height="100%"
+              <Box component="iframe"
+                width="400"
+                height="550"
                 src={url}
                 title="RATS - The Most Dangerous Cover Band in the World (Official Video)"
                 frameBorder={0}
                 allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
                 onLoad={() => setLoading(false)}
-                style={{ display: loading ? 'none' : 'block', minHeight: '250px' }}
+                sx={{ display: loading ? 'none' : 'block', minHeight: { xs: 600, sm: 400, md: 400 },width: { xs: '100%', sm: 300 } }}
               />
             </Box>
           </Box>
