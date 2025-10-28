@@ -66,29 +66,24 @@ const Home = () => {
         />
         <Stack direction="row" spacing={2}>
           <Button onClick={() => scrollIntoView(home)}>Home</Button>
-          {/* <Button onClick={() => scrollIntoView(about)}>About</Button> */}
-          <Button onClick={() => scrollIntoView(songs)}>Songs</Button>
           <Button onClick={() => scrollIntoView(contact)}>Contact </Button>
-          {/* <Button onClick={() => scrollIntoView(tour)}>Tour Dates</Button> */}
+          <Button onClick={() => scrollIntoView(songs)}>Songs</Button>
           <ScrollToTop />
         </Stack>
       </Toolbar>
         <Container className="container home" ref={home}>
           <Video/>
-          <Divider sx={{ height: 20 }} />
+          <Divider sx={{ height: 20, mt:4 }} />
         </Container>
-        {/* <Container className="container" ref={about}>
-          <About />
-          <Divider sx={{ height: 20 }} />
-        </Container> */}
+       <Container className="container" ref={contact}>
+          <Contact />
+          <Divider sx={{ height: 20 , mt:4}} />
+        </Container>
         <Container className="container" ref={songs}>
           <Songs />
-          <Divider sx={{ height: 20 }} />
+          <Divider sx={{ height: 20 , mt:4}} />
         </Container>
-        <Container className="container" ref={contact}>
-          <Contact />
-          <Divider sx={{ height: 20 }} />
-        </Container>
+        
         {/* <Container className="container" ref={tour}>
           <Tour />
         </Container> */}
