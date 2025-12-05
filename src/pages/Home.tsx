@@ -13,21 +13,21 @@ const Home = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
  
   const home = useRef(null);
-  const about = useRef(null);
   const songs = useRef(null);
   const contact = useRef(null);
-  const tour = useRef(null);
 
   const scrollIntoView = (elref: React.RefObject<HTMLElement>) => {
+   
     const main = document.getElementById('main');
 
     if (main && elref.current) {
       const isMobile = window.innerWidth < 600;
-      const offset = isMobile ? 80 : 120;
-      
+      const offset = isMobile ? 120 : 160;
+     const elOffset = elref.current.offsetTop - offset;
+    
       main.scrollTo({
         behavior: 'smooth',
-        top: elref.current.offsetTop - offset,
+        top: elOffset,
       }); 
     }
   };
@@ -120,23 +120,24 @@ const Home = () => {
           sx={{ pt: { xs: 15, sm: 12, md: 10 } }}
         >
           <Video/>
-          <Divider sx={{ height: 20, }} />
+          <Divider sx={{ height: 20 }} />
         </Container>
        <Container 
           className="container" 
           ref={contact}
-          sx={{ px: { xs: 1, sm: 3 } }}
+          sx={{ px: { xs: 1, sm: 4} }}
         >
           <Contact />
-          <Divider sx={{ height: 20, }} />
+          <Divider sx={{ height: 20 }} />
         </Container>
-        <Container 
+        
+        <Container
           className="container" 
           ref={songs}
-          sx={{ px: { xs: 1, sm: 3 } }}
+          sx={{ px: { xs: 1, sm: 4 } }}
         >
           <Songs />
-          <Divider sx={{ height: 20, mt: 4 }} />
+          <Divider sx={{ height: 20}} />
         </Container>
         
         {/* <Container className="container" ref={tour}>

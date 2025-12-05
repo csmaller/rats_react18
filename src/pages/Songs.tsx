@@ -18,7 +18,7 @@ const Songs: React.FC = () => {
   const displaySongs = songs.length > 0 ? songs : songsData.songs;
 
   return (
-    <Box sx={{ overflowY: 'auto', height: '100%', pb: 6 }}>
+    <Box sx={{ overflowY: 'auto',  height:"100%", pb: 6}}>
       <Box sx={{ mb: 2, justifyContent: 'center', display: 'flex', pt: 4 }}>
         <Typography variant="h4" component="h1" gutterBottom>
           Songs

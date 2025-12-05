@@ -5,7 +5,6 @@ const Video: React.FC = () => {
 
     const [loading, setLoading] = React.useState(true);
     const url ='https://www.youtube.com/embed/LhsGpiRIk4A?autoplay=1&mute=1';
-    const url2="https://www.youtube.com/embed/l46RV6Bt6dE?autoplay=1&mute=1"
 
   return (
     <Container sx={{ pt: { xs: 2, md: 6 }, px: { xs: 1, sm: 3 } }}>
@@ -17,7 +16,7 @@ const Video: React.FC = () => {
           <Typography variant="body1" gutterBottom sx={{ pl: { xs: 1, sm: 4 }, pr: { xs: 1, sm: 4 }, fontSize: { xs: '0.9rem', sm: '1rem' }, maxWidth: { lg: '50%' }, pt:{lg:4, xs:2} }}>
           We have been playing in and around Utah, California,Colorado, Wyoming, Nevada and Idaho since 2008. Our music comes from almost every popular genre and can be best described as “Ski Town Party Music”, but that doesn’t mean we don’t make your wedding, corporate event, or party a complete success!
 
-          <p>With tons of songs, medleys, contagious energy, a touch of humor, and positive vibes RATS has built a name for themselves in their home town of Park City as one of the best bands in the area. Come down to one of our shows and see what all of the fuss is about.</p>
+          <br /><br />With tons of songs, medleys, contagious energy, a touch of humor, and positive vibes RATS has built a name for themselves in their home town of Park City as one of the best bands in the area. Come down to one of our shows and see what all of the fuss is about.
         </Typography>
           <Box sx={{ mt: { xs: 2, lg: 4 } }} >
             <Box  sx={{ position: 'relative', minHeight: { xs: 250, sm: 400, md: 400 }, width: { xs: '100%', sm: 300 }, maxWidth: '100%' }}>

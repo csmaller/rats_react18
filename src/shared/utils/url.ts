@@ -1,4 +1,6 @@
-export const songsUrl = 'https://ratsbackend.netlify.app/.netlify/functions/songs';
-export const contactUrl = 'https://ratsbackend.netlify.app/.netlify/functions/contact';
-export const authUrl = 'https://ratsbackend.netlify.app/.netlify/functions/auth';
-export const tourDatesUrl = 'https://ratsbackend.netlify.app/.netlify/functions/tourdates';
+const apiBaseUrl = 'https://api.ratsband.com/.netlify/functions/';
+
+export const songsUrl = `${apiBaseUrl}songs`;
+export const contactUrl = `${apiBaseUrl}contact`;
+export const authUrl = `${apiBaseUrl}auth`;
+export const tourDatesUrl = `${apiBaseUrl}tourdates`;
