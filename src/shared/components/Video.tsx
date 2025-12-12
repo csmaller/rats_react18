@@ -14,10 +14,9 @@ const Video: React.FC = () => {
         
         <Box component="div" sx={{ mt: {xs:4,md:1}, display: 'flex', flexDirection: { xs: 'column', lg: 'row' }, justifyContent: 'center', width: '100%', gap: { xs: 2, lg: 4 } }}>
           <Typography variant="body1" gutterBottom sx={{ pl: { xs: 1, sm: 4 }, pr: { xs: 1, sm: 4 }, fontSize: { xs: '0.9rem', sm: '1rem' }, maxWidth: { lg: '50%' }, pt:{lg:4, xs:2} }}>
-          We have been playing in and around Utah, California,Colorado, Wyoming, Nevada and Idaho since 2008. Our music comes from almost every popular genre and can be best described as “Ski Town Party Music”, but that doesn’t mean we don’t make your wedding, corporate event, or party a complete success!
+          Since 2008, RATS has been rocking stages across Utah, California, Colorado, Wyoming, Nevada, and Idaho. Blending influences from almost every popular genre, we’ve created a sound we proudly call ‘Ski Town Party Music.’
 
-          <br /><br />With tons of songs, medleys, contagious energy, a touch of humor, and positive vibes RATS has built a name for themselves in their home town of Park City as one of the best bands in the area. Come down to one of our shows and see what all of the fuss is about.
-        </Typography>
+<p>With an extensive catalog, crowd-favorite medleys, infectious energy, and a fun, upbeat stage presence, RATS has become known as one of the premier party bands in the Mountain West.</p> </Typography>
           <Box sx={{ mt: { xs: 2, lg: 4 } }} >
             <Box  sx={{ position: 'relative', minHeight: { xs: 250, sm: 400, md: 400 }, width: { xs: '100%', sm: 300 }, maxWidth: '100%' }}>
               {loading && <Loader />}
