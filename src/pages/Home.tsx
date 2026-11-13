@@ -1,22 +1,26 @@
-import { Box, Button, Container, Stack, Divider, Toolbar, IconButton, Drawer, List, ListItem, ListItemButton, ListItemText, Typography } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
-import React, { useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Box, Container, Divider, Typography } from '@mui/material';
+import React, { useEffect, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
+import BandNav, { HomeSection } from '../shared/components/BandNav';
 import Video from '../shared/components/Video';
 import Songs from './Songs';
 import Contact from './Contact';
 import Epk from './Epk';
-import ScrollToTop from '../shared/utils/scrollToTop';
 import logo from '../assets/logo_transparent.png';
-import logoRat from '../assets/logo_rat.png';
 
 const Home = () => {
-  const [mobileOpen, setMobileOpen] = useState(false);
-
+  const { hash } = useLocation();
   const home = useRef<HTMLDivElement>(null);
   const contact = useRef<HTMLDivElement>(null);
   const songs = useRef<HTMLDivElement>(null);
   const epk = useRef<HTMLDivElement>(null);
+
+  const sections: Record<HomeSection, React.RefObject<HTMLDivElement | null>> = {
+    home,
+    contact,
+    songs,
+    epk,
+  };
 
   const scrollToSection = (section: React.RefObject<HTMLDivElement | null>) => {
     const main = document.getElementById('main');
@@ -35,10 +39,21 @@ const Home = () => {
     });
   };
 
-  const go = (section: React.RefObject<HTMLDivElement | null>) => {
-    setMobileOpen(false);
-    scrollToSection(section);
+  const go = (section: HomeSection) => {
+    scrollToSection(sections[section]);
   };
+
+  useEffect(() => {
+    const id = hash.replace('#', '') as HomeSection;
+
+    if (!sections[id]) {
+      return;
+    }
+
+    const timer = window.setTimeout(() => scrollToSection(sections[id]), 50);
+
+    return () => window.clearTimeout(timer);
+  }, [hash]);
 
   return (
     <Container
@@ -51,90 +66,7 @@ const Home = () => {
         scrollBehavior: 'smooth',
       }}
     >
-       <Toolbar
-        sx={{
-          position: 'absolute',
-          top: 0,
-          zIndex: 1000,
-          backgroundColor: 'black',
-          borderBottom: 3,
-          borderColor: 'divider',
-          width: '100%',
-          py: { xs: 1, md: 2 },
-          justifyContent: 'center',
-        }}
-      >
-        <IconButton
-          onClick={() => go(home)}
-          aria-label="Back to main page"
-          sx={{ position: 'absolute', left: { xs: 8, md: 16 }, p: 0.5 }}
-        >
-          <Box
-            component="img"
-            src={logoRat}
-            alt=""
-            sx={{ height: { xs: 42, md: 52 }, width: 'auto', display: 'block' }}
-          />
-        </IconButton>
-        <Box sx={{ display: { xs: 'none', sm: 'flex' } }}>
-          <Stack direction="row" spacing={2}>
-            <Button onClick={() => go(home)}>Home</Button>
-            <Button component={Link} to="/videos">Videos</Button>
-            <Button onClick={() => go(contact)}>Contact</Button>
-            <Button onClick={() => go(songs)}>Songs</Button>
-            <Button onClick={() => go(epk)}>EPK</Button>
-            <ScrollToTop />
-          </Stack>
-        </Box>
-        <IconButton
-          sx={{ 
-            display: { xs: 'flex', sm: 'none' },
-            fontSize: '2rem',
-            p: 2,
-            position: 'absolute',
-            right: 8,
-          }}
-          onClick={() => setMobileOpen(true)}
-        >
-          <MenuIcon sx={{ fontSize: '2rem' }} />
-        </IconButton>
-      </Toolbar>
-      <Drawer
-        anchor="right"
-        open={mobileOpen}
-        onClose={() => setMobileOpen(false)}
-        sx={{ display: { xs: 'block', sm: 'none' } }}
-      >
-        <Box sx={{ width: 250, pt: 2 }}>
-          <List>
-            <ListItem disablePadding>
-              <ListItemButton onClick={() => go(home)}>
-                <ListItemText primary="Home" />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemButton component={Link} to="/videos" onClick={() => setMobileOpen(false)}>
-                <ListItemText primary="Videos" />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemButton onClick={() => go(contact)}>
-                <ListItemText primary="Contact" />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemButton onClick={() => go(songs)}>
-                <ListItemText primary="Songs" />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemButton onClick={() => go(epk)}>
-                <ListItemText primary="EPK" />
-              </ListItemButton>
-            </ListItem>
-          </List>
-        </Box>
-      </Drawer>
+      <BandNav overlay onSection={go} />
         <Container
           className="container home"
           ref={home}

@@ -1,9 +1,9 @@
 
 import React, { useState } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import Epk from './pages/Epk';
-import Videos from './pages/Videos';
+import Media from './pages/Media';
 import AdminLogin from './pages/AdminLogin';
 import AdminPanel from './pages/AdminPanel';
 import { Divider, Container, Box, Link } from '@mui/material';
@@ -18,7 +18,8 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/epk" element={<Epk />} />
-          <Route path="/videos" element={<Videos />} />
+          <Route path="/media" element={<Media />} />
+          <Route path="/videos" element={<Navigate to="/media" replace />} />
           <Route
             path="/admin"
             element={

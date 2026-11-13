@@ -1,7 +1,6 @@
-import { Box, Container, Link as MuiLink, Typography } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import logoRat from '../assets/logo_rat.png';
+import BandNav from '../shared/components/BandNav';
 import { videosUrl } from '../shared/utils/url';
 
 type VideoLink = {
@@ -10,7 +9,7 @@ type VideoLink = {
   embed_url: string;
 };
 
-export default function Videos() {
+export default function Media() {
   const [videos, setVideos] = useState<VideoLink[]>([]);
 
   useEffect(() => {
@@ -36,25 +35,10 @@ export default function Videos() {
 
   return (
     <Box sx={{ minHeight: '100vh' }}>
-      <Box
-        component="header"
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          px: 2,
-          py: 1,
-          backgroundColor: 'black',
-          borderBottom: 3,
-          borderColor: 'divider',
-        }}
-      >
-        <MuiLink component={Link} to="/" aria-label="Back to main page" sx={{ display: 'inline-flex' }}>
-          <Box component="img" src={logoRat} alt="" sx={{ height: { xs: 42, md: 52 }, width: 'auto' }} />
-        </MuiLink>
-      </Box>
+      <BandNav />
       <Container maxWidth="md" sx={{ py: { xs: 5, md: 8 } }}>
         <Typography variant="h3" component="h1">
-          Videos
+          Media
         </Typography>
         {videos.length === 0 ? (
           <Typography align="center" sx={{ mt: 3 }} color="text.secondary">

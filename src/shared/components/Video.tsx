@@ -93,8 +93,8 @@ export default function Video() {
           </Typography>
         )}
         <Typography align="center" sx={{ mt: 2 }}>
-          <Link component={RouterLink} to="/videos" color="secondary">
-            More videos
+          <Link component={RouterLink} to="/media" color="secondary">
+            Media
           </Link>
         </Typography>
         {photos.length > 0 && (
