@@ -12,13 +12,6 @@ import {
 import Honeypot from '../shared/components/Honeypot';
 import { contactInfoUrl, songsPdfUrl } from '../shared/utils/url';
 
-interface ContactFormData {
-  name: string;
-  email: string;
-  message: string;
-  [key: string]: string;
-}
-
 type ContactInfo = {
   note: string;
   name: string | null;
@@ -74,29 +67,34 @@ const Contact: React.FC = () => {
     });
   };
 
-  const encode = (data: ContactFormData) => {
-    return Object.keys(data)
-      .map((key) => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
-      .join('&');
-  };
   const resetForm = () => {
     setSubmitted(true);
     setFormData({ name: '', email: '', message: '' });
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       setLoading(true);
       setError('');
 
-      fetch('/', {
+      const botField = String(new FormData(e.currentTarget).get('bot-field') ?? '');
+      const response = await fetch(contactInfoUrl, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: encode({ 'form-name': 'rats-form-2025', ...formData }),
-      })
-        .then(() => resetForm())
-        .catch((submitError) => alert(submitError));
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ ...formData, 'bot-field': botField }),
+      });
+
+      if (!response.ok) {
+        const data = await response.json().catch(() => null);
+        setError(data?.message ?? 'The message could not be sent. Please try again.');
+        return;
+      }
+
+      resetForm();
     } catch (e) {
       console.log(e);
     } finally {
@@ -150,9 +148,9 @@ const Contact: React.FC = () => {
           ) : error ? (
             <Typography color="error">{error}</Typography>
           ) : (
-            <form onSubmit={handleSubmit} name="rats-form-2025" action="/" method="POST" data-netlify="true">
+            <form onSubmit={handleSubmit}>
               <Stack spacing={{ xs: 1.5, sm: 2 }}>
-                <input type="hidden" name="form-name" value="rats-form-2025" />
+                <input type="text" name="bot-field" tabIndex={-1} autoComplete="off" aria-hidden="true" style={{ display: 'none' }} />
                 <TextField
                   label="Full Name"
                   name="name"

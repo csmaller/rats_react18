@@ -8,6 +8,7 @@ import AdminLogin from './pages/AdminLogin';
 import AdminPanel from './pages/AdminPanel';
 import { Divider, Container, Box, Link } from '@mui/material';
 import ScrollToTop from './shared/utils/scrollToTop';
+import SocialLinks from './shared/components/SocialLinks';
 import { adminUrl } from './shared/utils/url';
 
 const App: React.FC = () => {
@@ -33,9 +34,14 @@ const App: React.FC = () => {
         </Routes>
         <Box sx={{ mt: 4, mb: 2, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <Divider />
-          <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
-            <small>&copy; {new Date().getFullYear()} Rats. All rights reserved.</small>
-            <Link href={adminUrl} color="inherit" underline="hover" sx={{ fontSize: '0.8rem' }}>
+          <Box sx={{ mt: 2, mb: 3 }}>
+            <SocialLinks size={76} />
+          </Box>
+          <Box sx={{ display: 'flex', gap: 2, alignItems: 'center', fontSize: '0.7rem' }}>
+            <Box component="small" sx={{ fontSize: 'inherit' }}>
+              &copy; {new Date().getFullYear()} Rats. All rights reserved.
+            </Box>
+            <Link href={adminUrl} color="inherit" underline="hover" sx={{ fontSize: 'inherit' }}>
               Admin
             </Link>
           </Box>

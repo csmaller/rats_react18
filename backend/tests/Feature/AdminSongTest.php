@@ -87,6 +87,17 @@ class AdminSongTest extends TestCase
         $this->assertGuest();
     }
 
+    public function test_logout_returns_to_the_main_site(): void
+    {
+        config(['rats.site_url' => 'http://localhost:5173']);
+
+        $this->actingAs(User::factory()->create())
+            ->post('/admin/logout')
+            ->assertRedirect('http://localhost:5173/');
+
+        $this->assertGuest();
+    }
+
     public function test_guests_are_sent_to_the_admin_login(): void
     {
         $this->get('/admin/songs')->assertRedirect('/admin/login');

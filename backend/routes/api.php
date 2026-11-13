@@ -1,8 +1,8 @@
 <?php
 
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\EpkController;
 use App\Http\Requests\Admin\YouTubeLinkRequest;
-use App\Models\EpkProfile;
 use App\Models\FeaturedVideo;
 use App\Models\MediaLink;
 use App\Models\Song;
@@ -18,17 +18,8 @@ Route::get('/songs', function () {
 
 Route::get('/epk', EpkController::class);
 
-Route::get('/contact', function () {
-    $profile = EpkProfile::query()->first();
-
-    return [
-        'note' => $profile?->contact_note ?? '',
-        'name' => $profile?->booking_name,
-        'phone' => $profile?->booking_phone,
-        'email' => $profile?->booking_email,
-        'location' => $profile?->hometown,
-    ];
-});
+Route::get('/contact', [ContactController::class, 'show']);
+Route::post('/contact', [ContactController::class, 'store'])->middleware('throttle:10,1');
 
 Route::get('/videos', function () {
     return [

@@ -55,6 +55,8 @@ class LoginController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('admin.login');
+        $site = config('rats.site_url') ?: config('app.url');
+
+        return redirect()->away(rtrim((string) $site, '/').'/');
     }
 }
