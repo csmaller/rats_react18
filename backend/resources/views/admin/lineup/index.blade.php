@@ -8,7 +8,7 @@
         <a class="button" href="{{ route('admin.lineup.create') }}">Add member</a>
     </div>
 
-    <p class="hint">Name, instruments, short bio, and portrait show on the EPK. With no published members, Lineup stays hidden.</p>
+    <p class="hint">Name, instruments, short bio, and photos show on the site. One photo is the main image. With no published members, Lineup stays hidden.</p>
 
     <div class="panel">
         <table>

@@ -1,5 +1,5 @@
 import { Box, Container, Divider, Typography } from '@mui/material';
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useLayoutEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import BandNav, { HomeSection } from '../shared/components/BandNav';
 import Video from '../shared/components/Video';
@@ -8,52 +8,139 @@ import Contact from './Contact';
 import Epk from './Epk';
 import logo from '../assets/logo_transparent.png';
 
+const sectionIds = ['home', 'media', 'contact', 'songs', 'epk'] as const;
+type SectionId = (typeof sectionIds)[number];
+
+function isSectionId(value: string): value is SectionId {
+  return (sectionIds as readonly string[]).includes(value);
+}
+
+function rememberSection(id: SectionId) {
+  const next = `#${id}`;
+  if (window.location.pathname === '/' && window.location.hash !== next) {
+    window.history.replaceState(window.history.state, '', next);
+  }
+}
+
+function sectionTop(main: HTMLElement, id: SectionId) {
+  const target = document.getElementById(id);
+  if (!target) {
+    return null;
+  }
+
+  return target.getBoundingClientRect().top - main.getBoundingClientRect().top + main.scrollTop;
+}
+
+function sectionInView(main: HTMLElement): SectionId {
+  if (main.scrollTop > 0 && main.scrollTop + main.clientHeight >= main.scrollHeight - 4) {
+    return 'epk';
+  }
+
+  const line = main.scrollTop + 96;
+  let active: SectionId = 'home';
+
+  for (const id of sectionIds) {
+    const top = sectionTop(main, id);
+    if (top !== null && top <= line) {
+      active = id;
+    }
+  }
+
+  return active;
+}
+
+function scrollToSection(id: SectionId, behavior: ScrollBehavior) {
+  const main = document.getElementById('main');
+  const top = main ? sectionTop(main, id) : null;
+
+  if (!main || top === null) {
+    return;
+  }
+
+  main.scrollTo({
+    behavior,
+    top: Math.max(0, top - 88),
+  });
+}
+
 const Home = () => {
   const { hash } = useLocation();
-  const home = useRef<HTMLDivElement>(null);
-  const contact = useRef<HTMLDivElement>(null);
-  const songs = useRef<HTMLDivElement>(null);
-  const epk = useRef<HTMLDivElement>(null);
-
-  const sections: Record<HomeSection, React.RefObject<HTMLDivElement | null>> = {
-    home,
-    contact,
-    songs,
-    epk,
-  };
-
-  const scrollToSection = (section: React.RefObject<HTMLDivElement | null>) => {
-    const main = document.getElementById('main');
-    const target = section.current;
-
-    if (!main || !target) {
-      return;
-    }
-
-    const top =
-      target.getBoundingClientRect().top - main.getBoundingClientRect().top + main.scrollTop - 88;
-
-    main.scrollTo({
-      behavior: 'smooth',
-      top: Math.max(0, top),
-    });
-  };
+  const pinned = useRef<SectionId | null>(null);
 
   const go = (section: HomeSection) => {
-    scrollToSection(sections[section]);
+    pinned.current = section;
+    rememberSection(section);
+    scrollToSection(section, 'smooth');
+    window.setTimeout(() => {
+      if (pinned.current === section) {
+        pinned.current = null;
+      }
+    }, 900);
   };
 
-  useEffect(() => {
-    const id = hash.replace('#', '') as HomeSection;
+  useLayoutEffect(() => {
+    const previous = window.history.scrollRestoration;
+    window.history.scrollRestoration = 'manual';
+    const id = hash.replace('#', '');
+    const main = document.getElementById('main');
 
-    if (!sections[id]) {
+    if (!isSectionId(id) || !main) {
+      return () => {
+        window.history.scrollRestoration = previous;
+      };
+    }
+
+    pinned.current = id;
+    const place = () => {
+      if (pinned.current === id) {
+        scrollToSection(id, 'auto');
+      }
+    };
+    const release = () => {
+      pinned.current = null;
+    };
+
+    place();
+    const observer = new ResizeObserver(place);
+    for (const child of main.children) {
+      observer.observe(child);
+    }
+    main.addEventListener('wheel', release, { passive: true });
+    main.addEventListener('touchmove', release, { passive: true });
+
+    return () => {
+      observer.disconnect();
+      main.removeEventListener('wheel', release);
+      main.removeEventListener('touchmove', release);
+      window.history.scrollRestoration = previous;
+    };
+  }, [hash]);
+
+  useEffect(() => {
+    const main = document.getElementById('main');
+    if (!main) {
       return;
     }
 
-    const timer = window.setTimeout(() => scrollToSection(sections[id]), 50);
+    let frame = 0;
+    const onScroll = () => {
+      if (pinned.current) {
+        return;
+      }
 
-    return () => window.clearTimeout(timer);
-  }, [hash]);
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        rememberSection(sectionInView(main));
+      });
+    };
+
+    main.addEventListener('scroll', onScroll, { passive: true });
+
+    return () => {
+      cancelAnimationFrame(frame);
+      main.removeEventListener('scroll', onScroll);
+    };
+  }, []);
 
   return (
     <Container
@@ -68,8 +155,8 @@ const Home = () => {
     >
       <BandNav overlay onSection={go} />
         <Container
+          id="home"
           className="container home"
-          ref={home}
           sx={{
             minHeight: '100vh',
             display: 'flex',
@@ -98,9 +185,9 @@ const Home = () => {
           <Video />
           <Divider sx={{ height: 20 }} />
         </Container>
-       <Container 
-          className="container" 
-          ref={contact}
+       <Container
+          id="contact"
+          className="container"
           sx={{ px: { xs: 1, sm: 4} }}
         >
           <Contact />
@@ -108,14 +195,14 @@ const Home = () => {
         </Container>
         
         <Container
-          className="container" 
-          ref={songs}
+          id="songs"
+          className="container"
           sx={{ px: { xs: 1, sm: 4 } }}
         >
           <Songs />
           <Divider sx={{ height: 20}} />
         </Container>
-        <Container className="container" ref={epk} sx={{ px: { xs: 1, sm: 4 } }}>
+        <Container id="epk" className="container" sx={{ px: { xs: 1, sm: 4 } }}>
           <Epk embedded />
         </Container>
       

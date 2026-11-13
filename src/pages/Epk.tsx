@@ -2,6 +2,7 @@ import { Box, Container, Link as MuiLink, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import logoRat from '../assets/logo_rat.png';
+import MemberPhotoLink, { memberPath } from '../shared/components/MemberPhotoLink';
 import { epkUrl, songsPdfUrl } from '../shared/utils/url';
 
 type ListenLink = {
@@ -11,6 +12,7 @@ type ListenLink = {
 
 type LineupMember = {
   name: string;
+  slug: string;
   instruments: string;
   bio: string;
   photo: string | null;
@@ -126,22 +128,17 @@ export default function Epk({ embedded = false }: { embedded?: boolean }) {
                   component="li"
                   sx={{ width: '100%', maxWidth: 280, textAlign: 'center' }}
                 >
-                  {member.photo && (
-                    <Box
-                      component="img"
-                      src={member.photo}
-                      alt=""
-                      sx={{
-                        width: '100%',
-                        aspectRatio: '3 / 4',
-                        objectFit: 'cover',
-                        display: 'block',
-                        border: '2px solid',
-                        borderColor: 'secondary.main',
-                      }}
-                    />
+                  {member.photo && member.slug && (
+                    <MemberPhotoLink slug={member.slug} photo={member.photo} alt={member.name} />
                   )}
                   <Typography sx={{ mt: 1 }}>{member.name}</Typography>
+                  {member.slug && (
+                    <Typography sx={{ mt: 0.5, fontSize: '0.85rem' }}>
+                      <MuiLink component={Link} to={memberPath(member.slug)} color="secondary">
+                        see more pictures of {member.name}
+                      </MuiLink>
+                    </Typography>
+                  )}
                   {member.instruments && (
                     <Typography sx={{ mt: 0.25, fontSize: '0.8rem', lineHeight: 1.15 }} color="text.secondary">
                       {member.instruments}

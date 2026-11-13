@@ -24,15 +24,18 @@ class EpkController extends Controller
             ->get(['title', 'url']);
 
         $lineup = Biography::query()
+            ->with('photos')
             ->where('is_published', true)
             ->orderBy('sort_order')
             ->orderBy('name')
-            ->get(['name', 'instruments', 'bio', 'photo_path'])
+            ->get()
             ->map(fn (Biography $member): array => [
                 'name' => $member->name,
+                'slug' => $member->slug,
                 'instruments' => $member->instruments,
                 'bio' => $member->bio,
                 'photo' => $member->photo_path,
+                'photos' => $member->publicPhotos(),
             ])
             ->values();
 

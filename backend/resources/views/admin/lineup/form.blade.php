@@ -32,15 +32,42 @@
             @error('bio')<span class="error">{{ $message }}</span>@enderror
         </label>
 
-        <label>
-            Portrait
-            <input type="file" name="photo" accept="image/jpeg,image/png,image/webp">
-            @error('photo')<span class="error">{{ $message }}</span>@enderror
-        </label>
-        <p class="hint">Use a portrait photo: taller than it is wide. A head-and-shoulders shot fits the lineup best.</p>
-        @if ($member->photo_path)
-            <img class="portrait" src="{{ $member->photo_path }}" alt="">
-        @endif
+        <fieldset class="photos">
+            <legend>Photos</legend>
+            @if ($member->exists)
+                <div class="photo-grid">
+                    @foreach ($member->photos as $photo)
+                        <div class="photo-choice">
+                            <img class="portrait" src="{{ $photo->path }}" alt="">
+                            <label class="check">
+                                <input
+                                    type="radio"
+                                    name="main_photo"
+                                    value="{{ $photo->id }}"
+                                    @checked((string) old('main_photo', $photo->is_main ? $photo->id : '') === (string) $photo->id)
+                                >
+                                Main image
+                            </label>
+                            <label class="check">
+                                <input type="checkbox" name="remove[]" value="{{ $photo->id }}" @checked(in_array($photo->id, array_map('intval', (array) old('remove', [])), true))>
+                                Remove
+                            </label>
+                        </div>
+                    @endforeach
+                </div>
+            @endif
+            <label>
+                Add photos
+                <input type="file" name="photos[]" accept="image/jpeg,image/png,image/webp" multiple>
+                @error('photos')<span class="error">{{ $message }}</span>@enderror
+                @error('photos.*')<span class="error">{{ $message }}</span>@enderror
+            </label>
+            <label class="check">
+                <input type="radio" name="main_photo" value="new" @checked(old('main_photo', $member->exists && $member->photos->isNotEmpty() ? '' : 'new') === 'new')>
+                Use the first new photo as the main image
+            </label>
+            <p class="hint">Upload one or more photos. One photo is the main image, and it is the portrait on the site.</p>
+        </fieldset>
 
         <label>
             Order

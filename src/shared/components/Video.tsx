@@ -1,6 +1,7 @@
 import { Box, Container, Link, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
+import MemberPhotoLink, { memberPath } from './MemberPhotoLink';
 import { epkUrl, mainVideoUrl } from '../utils/url';
 
 type MainVideo = {
@@ -10,12 +11,13 @@ type MainVideo = {
 
 type LineupPhoto = {
   name: string;
+  slug: string;
   photo: string | null;
 };
 
 export default function Video() {
   const [video, setVideo] = useState<MainVideo | null>(null);
-  const [photos, setPhotos] = useState<string[]>([]);
+  const [photos, setPhotos] = useState<LineupPhoto[]>([]);
 
   useEffect(() => {
     let active = true;
@@ -48,8 +50,7 @@ export default function Video() {
           return;
         }
         const portraits = (Array.isArray(data.lineup) ? data.lineup : [])
-          .map((member) => member.photo)
-          .filter((photo): photo is string => Boolean(photo))
+          .filter((member) => Boolean(member.photo) && Boolean(member.slug))
           .slice(0, 4);
         setPhotos(portraits);
       })
@@ -106,23 +107,16 @@ export default function Video() {
               gap: { xs: 1, sm: 2 },
             }}
           >
-            {photos.map((photo) => (
-              <Box
-                key={photo}
-                sx={{
-                  border: '2px solid',
-                  borderColor: 'secondary.main',
-                  borderRadius: 2,
-                  overflow: 'hidden',
-                  lineHeight: 0,
-                }}
-              >
-                <Box
-                  component="img"
-                  src={photo}
-                  alt=""
-                  sx={{ width: '100%', aspectRatio: '3 / 4', objectFit: 'cover', display: 'block' }}
-                />
+            {photos.map((member) => (
+              <Box key={member.slug}>
+                {member.photo && (
+                  <MemberPhotoLink slug={member.slug} photo={member.photo} alt={member.name} rounded />
+                )}
+                <Typography component="small" sx={{ display: 'block', mt: 0.75, fontSize: '0.75rem', textAlign: 'center' }}>
+                  <Link component={RouterLink} to={memberPath(member.slug)} color="secondary">
+                    {member.name}
+                  </Link>
+                </Typography>
               </Box>
             ))}
           </Box>

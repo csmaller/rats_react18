@@ -151,9 +151,10 @@ class EpkTest extends TestCase
         $this->actingAs($admin)
             ->get('/admin/lineup/create')
             ->assertOk()
-            ->assertSee('Use a portrait photo: taller than it is wide.', false)
+            ->assertSee('Upload one or more photos. One photo is the main image, and it is the portrait on the site.', false)
             ->assertSee('name="bio"', false)
-            ->assertSee('name="photo"', false)
+            ->assertSee('name="photos[]"', false)
+            ->assertSee('name="main_photo"', false)
             ->assertSee('data-upload', false)
             ->assertSee('upload-progress', false);
 
@@ -170,7 +171,8 @@ class EpkTest extends TestCase
                 'name' => 'Alex Rivera',
                 'instruments' => 'Guitar, vocals',
                 'bio' => 'Keeps the room moving from the first song.',
-                'photo' => UploadedFile::fake()->image('portrait.jpg', 600, 800),
+                'photos' => [UploadedFile::fake()->image('portrait.jpg', 600, 800)],
+                'main_photo' => 'new',
                 'is_published' => '1',
             ])
             ->assertRedirect('/admin/lineup');
@@ -180,7 +182,8 @@ class EpkTest extends TestCase
                 'name' => 'Casey Quinn',
                 'instruments' => 'Bass',
                 'bio' => 'Locks in with the drums.',
-                'photo' => UploadedFile::fake()->image('portrait.jpg', 600, 800),
+                'photos' => [UploadedFile::fake()->image('portrait.jpg', 600, 800)],
+                'main_photo' => 'new',
                 'is_published' => '0',
             ])
             ->assertOk()
@@ -202,12 +205,79 @@ class EpkTest extends TestCase
                 'name' => 'No Picture',
                 'instruments' => 'Bass',
                 'bio' => 'Holds down the low end.',
-                'photo' => UploadedFile::fake()->create('notes.txt', 10, 'text/plain'),
+                'photos' => [UploadedFile::fake()->create('notes.txt', 10, 'text/plain')],
                 'is_published' => '1',
             ])
-            ->assertSessionHasErrors('photo');
+            ->assertSessionHasErrors('photos.0');
 
         PublicUploads::delete($member->photo_path);
         PublicUploads::delete(Biography::query()->where('name', 'Casey Quinn')->value('photo_path'));
+    }
+
+    public function test_a_member_keeps_one_main_image_among_several_photos(): void
+    {
+        $admin = User::factory()->create();
+
+        $this->actingAs($admin)
+            ->post('/admin/lineup', [
+                'name' => 'Alex Rivera',
+                'instruments' => 'Guitar, vocals',
+                'bio' => 'Leads the party from the first downbeat.',
+                'photos' => [
+                    UploadedFile::fake()->image('one.jpg', 600, 800),
+                    UploadedFile::fake()->image('two.jpg', 640, 860),
+                ],
+                'main_photo' => 'new',
+                'is_published' => '1',
+            ])
+            ->assertRedirect('/admin/lineup');
+
+        $member = Biography::query()->where('name', 'Alex Rivera')->first();
+        $this->assertNotNull($member);
+        $this->assertCount(2, $member->photos);
+        $this->assertSame(1, $member->photos()->where('is_main', true)->count());
+        $this->assertSame($member->photo_path, $member->photos()->where('is_main', true)->value('path'));
+
+        $this->getJson('/api/members/'.$member->slug)
+            ->assertOk()
+            ->assertJsonPath('name', 'Alex Rivera')
+            ->assertJsonPath('instruments', 'Guitar, vocals')
+            ->assertJsonPath('bio', 'Leads the party from the first downbeat.')
+            ->assertJsonCount(2, 'photos')
+            ->assertJsonPath('photos.0', $member->photo_path);
+
+        $extra = $member->photos()->where('is_main', false)->first();
+        $this->assertNotNull($extra);
+
+        $this->actingAs($admin)
+            ->put('/admin/lineup/'.$member->id, [
+                'name' => 'Alex Rivera',
+                'instruments' => 'Guitar, vocals',
+                'bio' => 'Leads the party from the first downbeat.',
+                'main_photo' => (string) $extra->id,
+                'is_published' => '1',
+            ])
+            ->assertRedirect('/admin/lineup');
+
+        $member->refresh();
+        $this->assertSame($extra->path, $member->photo_path);
+        $this->assertSame(1, $member->photos()->where('is_main', true)->count());
+
+        $this->actingAs($admin)
+            ->post('/admin/lineup', [
+                'name' => 'Hidden Player',
+                'instruments' => 'Drums',
+                'bio' => 'Keeps the backbeat loud.',
+                'is_published' => '0',
+            ])
+            ->assertRedirect('/admin/lineup');
+
+        $hidden = Biography::query()->where('name', 'Hidden Player')->first();
+        $this->assertNotNull($hidden);
+        $this->getJson('/api/members/'.$hidden->slug)->assertNotFound();
+
+        foreach ($member->photos as $photo) {
+            PublicUploads::delete($photo->path);
+        }
     }
 }

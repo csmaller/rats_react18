@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\EpkController;
+use App\Http\Controllers\MemberController;
 use App\Http\Requests\Admin\YouTubeLinkRequest;
 use App\Models\FeaturedVideo;
 use App\Models\MediaLink;
@@ -17,6 +18,7 @@ Route::get('/songs', function () {
 });
 
 Route::get('/epk', EpkController::class);
+Route::get('/members/{biography:slug}', [MemberController::class, 'show']);
 
 Route::get('/contact', [ContactController::class, 'show']);
 Route::post('/contact', [ContactController::class, 'store'])->middleware('throttle:10,1');

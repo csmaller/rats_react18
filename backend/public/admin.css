@@ -207,6 +207,28 @@ textarea.short {
   background: #000;
 }
 
+.photos {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.photos legend {
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+}
+
+.photo-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.photo-choice .portrait {
+  margin-bottom: 0.4rem;
+}
+
 .check {
   display: flex;
   align-items: center;

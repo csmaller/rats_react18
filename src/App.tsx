@@ -4,6 +4,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import Epk from './pages/Epk';
 import Media from './pages/Media';
+import Member from './pages/Member';
 import AdminLogin from './pages/AdminLogin';
 import AdminPanel from './pages/AdminPanel';
 import { Divider, Container, Box, Link } from '@mui/material';
@@ -20,6 +21,7 @@ const App: React.FC = () => {
           <Route path="/" element={<Home />} />
           <Route path="/epk" element={<Epk />} />
           <Route path="/media" element={<Media />} />
+          <Route path="/members/:slug" element={<Member />} />
           <Route path="/videos" element={<Navigate to="/media" replace />} />
           <Route
             path="/admin"

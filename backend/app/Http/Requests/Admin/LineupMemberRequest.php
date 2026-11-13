@@ -34,7 +34,11 @@ class LineupMemberRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'instruments' => ['required', 'string', 'max:255'],
             'bio' => ['required', 'string', 'max:500'],
-            'photo' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:8192'],
+            'photos' => ['nullable', 'array', 'max:12'],
+            'photos.*' => ['image', 'mimes:jpg,jpeg,png,webp', 'max:8192'],
+            'main_photo' => ['nullable', 'string', 'max:20'],
+            'remove' => ['nullable', 'array'],
+            'remove.*' => ['integer'],
             'sort_order' => ['nullable', 'integer', 'min:0', 'max:9999'],
             'is_published' => ['required', 'boolean'],
         ];

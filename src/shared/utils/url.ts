@@ -8,6 +8,7 @@ export const songsPdfUrl = `${laravelApiUrl}/songs.pdf`;
 export const mainVideoUrl = `${laravelApiUrl}/api/main-video`;
 export const videosUrl = `${laravelApiUrl}/api/videos`;
 export const epkUrl = `${laravelApiUrl}/api/epk`;
+export const memberUrl = (slug: string) => `${laravelApiUrl}/api/members/${encodeURIComponent(slug)}`;
 export const adminUrl = `${laravelApiUrl}/admin`;
 export const contactUrl = `${apiBaseUrl}contact`;
 export const contactInfoUrl = `${laravelApiUrl}/api/contact`;
