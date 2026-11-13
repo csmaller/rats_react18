@@ -51,6 +51,7 @@ class SongPdfTest extends TestCase
         $response->assertOk();
         $response->assertHeader('content-type', 'application/pdf');
         $this->assertStringStartsWith('%PDF', $response->getContent());
+        $this->assertStringContainsString('/Image', $response->getContent());
         $this->assertStringContainsString('rats-set-list.pdf', (string) $response->headers->get('content-disposition'));
     }
 }

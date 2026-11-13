@@ -26,7 +26,7 @@ class SongPdfController extends Controller
 
     private function logoDataUri(): ?string
     {
-        $path = dirname(base_path()).'/src/assets/logo_transparent.png';
+        $path = resource_path('images/logo_transparent.png');
 
         if (! is_file($path)) {
             return null;
