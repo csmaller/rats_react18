@@ -1,3 +1,35 @@
+# This network's DNS can still send the domain to Netlify. Proxy the Laravel
+# routes through to the Hostinger site so the contact form and the rest of the API work.
+[[redirects]]
+  from = "/api/*"
+  to = "https://ratsband.com/api/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/admin"
+  to = "https://ratsband.com/admin"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/admin/*"
+  to = "https://ratsband.com/admin/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/songs.pdf"
+  to = "https://ratsband.com/songs.pdf"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/up"
+  to = "https://ratsband.com/up"
+  status = 200
+  force = true
+
 [[redirects]]
   from = "/*"
   to = "/"
