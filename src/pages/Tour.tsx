@@ -1,27 +1,21 @@
-import { Container, Typography } from '@mui/material';
-import React from 'react';
-import { tourDates } from '../data/tourDates';
+import { Box, Button, Container, Typography } from '@mui/material';
+import { scrollToId } from '../shared/utils/scrollTo';
 
-const Tour: React.FC = () => {
+export default function Tour() {
   return (
-    <div>
-      <Container sx={{ mt: 4 }}>
-        <Typography variant="h4" gutterBottom>
-          Tour Dates
+    <Box component="section" id="shows" sx={{ py: { xs: 8, md: 12 } }}>
+      <Container maxWidth="md">
+        <Typography variant="h3" component="h2">
+          Shows
         </Typography>
-        <div>
-          {tourDates.map((date) => {
-            const formattedDate = new Date(date.date).toLocaleDateString('en-US', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
-            });
-            return <div key={date.date}>{`Date: ${formattedDate}`}</div>;
-          })}
-        </div>
+        <Box sx={{ width: 72, height: 2, my: 2, backgroundColor: 'secondary.main' }} />
+        <Typography color="text.secondary" sx={{ mb: 3 }}>
+          No dates posted yet. If you want RATS on your stage, book the band.
+        </Typography>
+        <Button variant="contained" onClick={() => scrollToId('contact')}>
+          Book the band
+        </Button>
       </Container>
-    </div>
+    </Box>
   );
-};
-
-export default Tour;
+}

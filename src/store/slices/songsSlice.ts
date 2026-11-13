@@ -1,4 +1,4 @@
-import { songsUrl } from '../../shared/utils/url';
+import { setListUrl } from '../../shared/utils/url';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 export interface Song {
@@ -23,7 +23,7 @@ export const fetchSongs = createAsyncThunk<Song[]>(
   'songs/fetchSongs',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await fetch(`${songsUrl}`);
+      const response = await fetch(setListUrl);
       if (!response.ok) throw new Error('Network response was not ok');
       const data = await response.json();
       return data;

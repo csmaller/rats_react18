@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
     'booking_name',
     'booking_email',
     'booking_phone',
+    'contact_note',
     'website',
 ])]
 class EpkProfile extends Model

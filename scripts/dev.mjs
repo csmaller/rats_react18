@@ -45,8 +45,16 @@ const children = [
   start(
     'api',
     'php',
-    ['artisan', 'serve', '--host=127.0.0.1', '--port=8000'],
-    path.join(root, 'backend'),
+    [
+      '-d', 'upload_max_filesize=512M',
+      '-d', 'post_max_size=512M',
+      '-d', 'memory_limit=1024M',
+      '-d', 'max_execution_time=0',
+      '-d', 'max_input_time=-1',
+      '-S', '127.0.0.1:8000',
+      path.join(root, 'backend/vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php'),
+    ],
+    path.join(root, 'backend/public'),
   ),
 ];
 

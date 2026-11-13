@@ -1,5 +1,9 @@
 node_modules/
 dist/
+public/videos/*
+!public/videos/.gitkeep
+public/images/*
+!public/images/.gitkeep
 .env
 .vscode/
 .DS_Store

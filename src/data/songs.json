@@ -56,6 +56,8 @@
     { "id": 54, "title": "Bulls On Parade", "artist": "Rage Against The Machine" },
     { "id": 55, "title": "Feathered Indians", "artist": "Tyler Childers" },
     { "id": 56, "title": "Oklahoma Smokeshow", "artist": "Zach Bryan" },
-    { "id": 57, "title": "Whitehouse Road", "artist": "Tyler Childers" }
+    { "id": 57, "title": "Whitehouse Road", "artist": "Tyler Childers" },
+    { "id": 58, "title": "Shakedown Street", "artist": "Grateful Dead" },
+    { "id": 59, "title": "Down With Disease", "artist": "Phish" }
   ]
 }

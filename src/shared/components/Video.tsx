@@ -1,42 +1,133 @@
-import React from 'react';
-import { Box ,Container,Typography} from '@mui/material';
-import Loader from './Loader';
-const Video: React.FC = () => {
+import { Box, Container, Link, Typography } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
+import { epkUrl, mainVideoUrl } from '../utils/url';
 
-    const [loading, setLoading] = React.useState(true);
-    const url ='https://www.youtube.com/embed/LhsGpiRIk4A?autoplay=1&mute=1';
-
-  return (
-    <Container sx={{ pt: { xs: 2, md: 6 }, px: { xs: 1, sm: 3 } }}>
-        <Typography variant="h4" gutterBottom sx={{ mt: 1, display: 'flex', justifyContent: 'center', width: '100%', textAlign:"center", fontSize: { xs: '1.5rem', sm: '2rem', md: '2.125rem' } }}>
-          Welcome to the most dangerous cover band in the world.
-        </Typography>
-        
-        <Box component="div" sx={{ mt: {xs:4,md:1}, display: 'flex', flexDirection: { xs: 'column', lg: 'row' }, justifyContent: 'center', width: '100%', gap: { xs: 2, lg: 4 } }}>
-          <Typography variant="body1" gutterBottom sx={{ pl: { xs: 1, sm: 4 }, pr: { xs: 1, sm: 4 }, fontSize: { xs: '0.9rem', sm: '1rem' }, maxWidth: { lg: '50%' }, pt:{lg:4, xs:2} }}>
-          Since 2008, RATS has been rocking stages across Utah, California, Colorado, Wyoming, Nevada, and Idaho. Blending influences from almost every popular genre, we’ve created a sound we proudly call ‘Ski Town Party Music.’
-
-<p>With an extensive catalog, crowd-favorite medleys, infectious energy, and a fun, upbeat stage presence, RATS has become known as one of the premier party bands in the Mountain West.</p> </Typography>
-          <Box sx={{ mt: { xs: 2, lg: 4 } }} >
-            <Box  sx={{ position: 'relative', minHeight: { xs: 250, sm: 400, md: 400 }, width: { xs: '100%', sm: 300 }, maxWidth: '100%' }}>
-              {loading && <Loader />}
-              <Box component="iframe"
-                width="400"
-                height="550"
-                src={url}
-                title="RATS - The Most Dangerous Cover Band in the World (Official Video)"
-                frameBorder={0}
-                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                onLoad={() => setLoading(false)}
-                sx={{ display: loading ? 'none' : 'block', minHeight: { xs: 600, sm: 400, md: 400 },width: { xs: '100%', sm: 300 } }}
-              />
-            </Box>
-          </Box>
-        
-        </Box>
-      </Container>
-  );
+type MainVideo = {
+  title: string;
+  url: string;
 };
 
-export default Video;
+type LineupPhoto = {
+  name: string;
+  photo: string | null;
+};
+
+export default function Video() {
+  const [video, setVideo] = useState<MainVideo | null>(null);
+  const [photos, setPhotos] = useState<string[]>([]);
+
+  useEffect(() => {
+    let active = true;
+
+    fetch(mainVideoUrl)
+      .then((response) => (response.ok ? response.json() : Promise.reject()))
+      .then((data: { video: MainVideo | null }) => {
+        if (active) {
+          setVideo(data.video);
+        }
+      })
+      .catch(() => {
+        if (active) {
+          setVideo(null);
+        }
+      });
+
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    let active = true;
+
+    fetch(epkUrl)
+      .then((response) => (response.ok ? response.json() : Promise.reject()))
+      .then((data: { lineup?: LineupPhoto[] }) => {
+        if (!active) {
+          return;
+        }
+        const portraits = (Array.isArray(data.lineup) ? data.lineup : [])
+          .map((member) => member.photo)
+          .filter((photo): photo is string => Boolean(photo))
+          .slice(0, 4);
+        setPhotos(portraits);
+      })
+      .catch(() => {
+        if (active) {
+          setPhotos([]);
+        }
+      });
+
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  return (
+    <Box component="section" id="media" sx={{ py: { xs: 4, md: 6 } }}>
+      <Container maxWidth="md">
+        {video ? (
+          <Box
+            sx={{
+              border: '3px solid',
+              borderColor: 'secondary.main',
+              borderRadius: 2,
+              overflow: 'hidden',
+              lineHeight: 0,
+            }}
+          >
+            <Box
+              component="video"
+              src={video.url}
+              title={video.title}
+              controls
+              playsInline
+              preload="metadata"
+              sx={{ width: '100%', display: 'block', backgroundColor: '#000' }}
+            />
+          </Box>
+        ) : (
+          <Typography align="center" color="text.secondary">
+            The main video shows up here after it is uploaded in the admin.
+          </Typography>
+        )}
+        <Typography align="center" sx={{ mt: 2 }}>
+          <Link component={RouterLink} to="/videos" color="secondary">
+            More videos
+          </Link>
+        </Typography>
+        {photos.length > 0 && (
+          <Box
+            sx={{
+              mt: 5,
+              display: 'grid',
+              gridTemplateColumns: 'repeat(4, minmax(0, 1fr))',
+              gap: { xs: 1, sm: 2 },
+            }}
+          >
+            {photos.map((photo) => (
+              <Box
+                key={photo}
+                sx={{
+                  border: '2px solid',
+                  borderColor: 'secondary.main',
+                  borderRadius: 2,
+                  overflow: 'hidden',
+                  lineHeight: 0,
+                }}
+              >
+                <Box
+                  component="img"
+                  src={photo}
+                  alt=""
+                  sx={{ width: '100%', aspectRatio: '3 / 4', objectFit: 'cover', display: 'block' }}
+                />
+              </Box>
+            ))}
+          </Box>
+        )}
+      </Container>
+    </Box>
+  );
+}

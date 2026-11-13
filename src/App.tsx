@@ -1,14 +1,14 @@
 
 import React, { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import About from './pages/About';
 import Home from './pages/Home';
-import Songs from './pages/Songs';
-import Contact from './pages/Contact';
+import Epk from './pages/Epk';
+import Videos from './pages/Videos';
 import AdminLogin from './pages/AdminLogin';
 import AdminPanel from './pages/AdminPanel';
-import { Divider,Container, Box} from '@mui/material';
+import { Divider, Container, Box, Link } from '@mui/material';
 import ScrollToTop from './shared/utils/scrollToTop';
+import { adminUrl } from './shared/utils/url';
 
 const App: React.FC = () => {
   const [adminLoggedIn, setAdminLoggedIn] = useState(false);
@@ -17,6 +17,8 @@ const App: React.FC = () => {
       <Container sx={{ maxWidth: '100% !important' }} disableGutters >
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/epk" element={<Epk />} />
+          <Route path="/videos" element={<Videos />} />
           <Route
             path="/admin"
             element={
@@ -30,7 +32,12 @@ const App: React.FC = () => {
         </Routes>
         <Box sx={{ mt: 4, mb: 2, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <Divider />
-          <div><small>&copy; {new Date().getFullYear()} Rats. All rights reserved.</small></div>
+          <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
+            <small>&copy; {new Date().getFullYear()} Rats. All rights reserved.</small>
+            <Link href={adminUrl} color="inherit" underline="hover" sx={{ fontSize: '0.8rem' }}>
+              Admin
+            </Link>
+          </Box>
            <ScrollToTop />
         </Box> 
        

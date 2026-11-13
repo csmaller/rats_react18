@@ -11,7 +11,13 @@ const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: 'RocknRoll One, Roboto, Arial, sans-serif',
+    fontFamily: '"Luckiest Guy", "Arial Black", sans-serif',
+    h1: { textAlign: 'center' },
+    h2: { textAlign: 'center' },
+    h3: { textAlign: 'center' },
+    h4: { textAlign: 'center' },
+    h5: { textAlign: 'center' },
+    h6: { textAlign: 'center' },
   },
 });
 

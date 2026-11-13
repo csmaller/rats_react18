@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Admin;
 
+use App\Models\Song;
 use Illuminate\Foundation\Http\FormRequest;
 
 class SongRequest extends FormRequest
@@ -30,7 +31,18 @@ class SongRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['required', 'string', 'max:255'],
+            'title' => ['required', 'string', 'max:255', function (string $attribute, mixed $value, \Closure $fail): void {
+                $query = Song::query()->whereRaw('lower(title) = ?', [mb_strtolower((string) $value)]);
+                $current = $this->route('song');
+
+                if ($current instanceof Song) {
+                    $query->whereKeyNot($current->id);
+                }
+
+                if ($query->exists()) {
+                    $fail('That song is already on the set list.');
+                }
+            }],
             'artist' => ['required', 'string', 'max:255'],
             'audio_url' => ['nullable', 'url', 'max:2048'],
             'sort_order' => ['nullable', 'integer', 'min:0', 'max:9999'],

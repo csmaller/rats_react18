@@ -53,6 +53,19 @@ a { color: var(--ice); }
   font-size: 0.78rem;
 }
 
+.admin-nav {
+  display: flex;
+  gap: 1rem;
+}
+
+.admin-nav a {
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
 .top form { margin-left: auto; }
 
 main {
@@ -67,10 +80,69 @@ main {
   border: 1px solid var(--acid);
 }
 
+.toasts {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 50;
+  display: grid;
+  gap: 0.5rem;
+  width: min(360px, calc(100% - 2rem));
+}
+
+.toast {
+  margin: 0;
+  padding: 0.75rem 1rem;
+  background: #14180d;
+  border: 1px solid var(--acid);
+}
+
+.toast.fail {
+  background: #241014;
+  border-color: var(--hot);
+}
+
+.upload-progress {
+  height: 0.55rem;
+  margin: 0.4rem 0 0.35rem;
+  background: #0c0f13;
+  border: 1px solid var(--line);
+  overflow: hidden;
+}
+
+.upload-progress-bar {
+  height: 100%;
+  width: 0;
+  background: var(--acid);
+}
+
+.upload-progress-label {
+  margin: 0 0 0.8rem;
+}
+
 .panel {
   background: var(--panel);
   border: 1px solid var(--line);
   padding: 1.25rem;
+}
+
+.editable { cursor: text; }
+.editable input { width: 100%; margin: 0; }
+.editable .error { display: block; margin-top: 0.35rem; }
+
+.add-song { margin: 1rem 0; }
+
+.add-song-fields {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr 1.3fr 6rem auto auto;
+  gap: 0.75rem;
+  align-items: end;
+}
+
+.add-song-fields label { margin: 0; }
+
+@media (max-width: 900px) {
+  .add-song-fields { grid-template-columns: 1fr; }
 }
 
 .toolbar, .row {
@@ -105,13 +177,34 @@ input[type="email"],
 input[type="password"],
 input[type="url"],
 input[type="number"],
-input[type="search"] {
+input[type="file"],
+input[type="search"],
+textarea {
   width: 100%;
   padding: 0.7rem 0.8rem;
   border: 1px solid var(--line);
   background: #0c0f13;
   color: var(--ink);
   font: inherit;
+}
+
+textarea {
+  min-height: 14rem;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+textarea.short {
+  min-height: 6rem;
+}
+
+.portrait {
+  width: 160px;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  display: block;
+  margin: 0.2rem 0 1rem;
+  background: #000;
 }
 
 .check {
@@ -206,3 +299,9 @@ th {
 }
 
 audio { width: 180px; height: 32px; }
+
+.preview video {
+  width: min(420px, 100%);
+  margin: 0.5rem 0 1rem;
+  background: #000;
+}

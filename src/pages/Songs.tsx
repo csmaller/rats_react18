@@ -1,9 +1,10 @@
-import { Typography, Card, CardContent, Grid, CircularProgress, Box } from '@mui/material';
+import { Typography, Card, CardContent, Grid, CircularProgress, Box, Button } from '@mui/material';
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState, AppDispatch } from '../store/store';
 import { fetchSongs } from '../store/slices/songsSlice';
 import songsData from '../data/songs.json';
+import { songsPdfUrl } from '../shared/utils/url';
 
 
 const Songs: React.FC = () => {
@@ -24,21 +25,26 @@ const Songs: React.FC = () => {
           Songs
         </Typography>
       </Box>
-      {loading ? (
+      <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
+        <Button component="a" href={songsPdfUrl} variant="outlined">
+          Download Set List and Booking Information
+        </Button>
+      </Box>
+      {loading && displaySongs.length === 0 ? (
         <Box
           sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 200 }}
         >
           <CircularProgress />
         </Box>
-      ) : error ? (
-        <Typography color="error">{error}</Typography>
+      ) : displaySongs.length === 0 ? (
+        <Typography color="error" align="center">{error || 'No songs on the set list yet.'}</Typography>
       ) : (
         <Grid container spacing={2}>
           {displaySongs.map((song: any, idx: number) => (
             <Grid item xs={12} sm={6} md={4} key={song.id || idx}>
               <Card>
                 <CardContent sx={{ paddingBottom: '8px !important', paddingTop: '8px !important' }}>
-                  <Typography variant="body1">
+                  <Typography sx={{ fontSize: '0.8rem', lineHeight: 1.2 }}>
                     {song.title} - {song.artist}
                   </Typography>
                 </CardContent>

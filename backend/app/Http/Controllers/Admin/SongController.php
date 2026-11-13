@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\SongRequest;
 use App\Models\Song;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -39,9 +40,16 @@ class SongController extends Controller
         ]);
     }
 
-    public function store(SongRequest $request): RedirectResponse
+    public function store(SongRequest $request): RedirectResponse|JsonResponse
     {
-        Song::query()->create($this->payload($request));
+        $song = Song::query()->create($this->payload($request));
+
+        if ($request->expectsJson()) {
+            return response()->json([
+                'message' => 'Song added to the set list.',
+                'song' => $this->songResource($song),
+            ], 201);
+        }
 
         return redirect()
             ->route('admin.songs.index')
@@ -55,9 +63,16 @@ class SongController extends Controller
         ]);
     }
 
-    public function update(SongRequest $request, Song $song): RedirectResponse
+    public function update(SongRequest $request, Song $song): RedirectResponse|JsonResponse
     {
         $song->update($this->payload($request, $song));
+
+        if ($request->expectsJson()) {
+            return response()->json([
+                'message' => 'Song updated.',
+                'song' => $this->songResource($song),
+            ]);
+        }
 
         return redirect()
             ->route('admin.songs.index')
@@ -85,5 +100,23 @@ class SongController extends Controller
         }
 
         return $data;
+    }
+
+    /**
+     * @return array{id: int, title: string, artist: string, audio_url: ?string, sort_order: int, is_published: bool, edit_url: string, update_url: string, destroy_url: string}
+     */
+    private function songResource(Song $song): array
+    {
+        return [
+            'id' => $song->id,
+            'title' => $song->title,
+            'artist' => $song->artist,
+            'audio_url' => $song->audio_url,
+            'sort_order' => $song->sort_order,
+            'is_published' => $song->is_published,
+            'edit_url' => route('admin.songs.edit', $song),
+            'update_url' => route('admin.songs.update', $song),
+            'destroy_url' => route('admin.songs.destroy', $song),
+        ];
     }
 }
